@@ -6,6 +6,5 @@ target 'SCNet-Swift' do
   use_frameworks!
 
   # Pods for SCNet-Swift
-  pod 'SwiftSocket'
   pod 'SwiftProtobuf', '~> 1.1.0'
 end

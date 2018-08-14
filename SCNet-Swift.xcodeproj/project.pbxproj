@@ -13,6 +13,7 @@
 		0B53AF6421214BDD00B58D61 /* BlockingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AF6321214BDD00B58D61 /* BlockingQueue.swift */; };
 		0B53AFD12121635300B58D61 /* Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AFD02121635300B58D61 /* Registry.swift */; };
 		0B53B0F52121A15000B58D61 /* MessageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53B0F42121A15000B58D61 /* MessageHeader.swift */; };
+		0B5B2DA42122E80C00C710FC /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B5B2DA32122E80C00C710FC /* SwiftSocket.framework */; };
 		B4787C3883A5B55E4ADB9C56 /* Pods_SCNet_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C355F2B869C5DC0EE3451186 /* Pods_SCNet_Swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		0B53AF6321214BDD00B58D61 /* BlockingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingQueue.swift; sourceTree = "<group>"; };
 		0B53AFD02121635300B58D61 /* Registry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registry.swift; sourceTree = "<group>"; };
 		0B53B0F42121A15000B58D61 /* MessageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHeader.swift; sourceTree = "<group>"; };
+		0B5B2DA32122E80C00C710FC /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSocket.framework; sourceTree = "<group>"; };
 		C355F2B869C5DC0EE3451186 /* Pods_SCNet_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SCNet_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -36,6 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4787C3883A5B55E4ADB9C56 /* Pods_SCNet_Swift.framework in Frameworks */,
+				0B5B2DA42122E80C00C710FC /* SwiftSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +89,7 @@
 		B01D59E20F81E9E1E29CC196 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B5B2DA32122E80C00C710FC /* SwiftSocket.framework */,
 				C355F2B869C5DC0EE3451186 /* Pods_SCNet_Swift.framework */,
 			);
 			name = Frameworks;
@@ -335,6 +339,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "SCNet-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -363,6 +371,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "SCNet-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -63,6 +63,7 @@ open class ClientManager: NSObject {
                         let req = try self.queue.take(1)
                         if try !self.send(request: req) {
                             self.isSRThreadInterrupted = true
+                            print("Disconnected from server (in sendThread)")
                             break
                         }
                     }
@@ -77,11 +78,19 @@ open class ClientManager: NSObject {
             
             DispatchQueue.global(qos: .default).async { // recv
                 while !self.isSRThreadInterrupted {
-                    guard let (messageHeader, data) = self.recv() else {
-                        continue
+                    do {
+                        guard let (messageHeader, data) = try self.recv() else {
+                            // timeout RecvThread
+                            continue
+                        }
+                        
+                        self.callback(messageHeader, data)
                     }
-
-                    self.callback(messageHeader, data)
+                    catch _ {
+                        print("Disconnected from server (in recvThread)")
+                        self.isSRThreadInterrupted = true
+                        break
+                    }
                 }
                 
                 print("recv thread finished")
@@ -105,6 +114,7 @@ open class ClientManager: NSObject {
 
     public func detach() {
         isInterrupted = true
+        isSRThreadInterrupted = true
     }
     
     public func send(request: Message) throws -> Bool {
@@ -126,7 +136,7 @@ open class ClientManager: NSObject {
         return result.isSuccess
     }
     
-    public func recv() -> (MessageHeader, [UInt8])? {
+    public func recv() throws -> (MessageHeader, [UInt8])? {
         guard let client = self.client else {
             return nil
         }
@@ -139,7 +149,7 @@ open class ClientManager: NSObject {
         }
     
         while true {
-            guard let _data = client.read(1, timeout: 1),
+            guard let _data = try client.read(1, timeout: 1),
                   let data = _data.first else {
                 return nil
             }
@@ -160,7 +170,7 @@ open class ClientManager: NSObject {
         // get MessageHeader
         let messageHeader = MessageHeader(dataSize: decodeVarint(headerBuffer[0]), packetType: decodeVarint(headerBuffer[1]), cryptType: decodeVarint(headerBuffer[2]))
         
-        guard let data = client.read(messageHeader.dataSize) else {
+        guard let data = try client.read(messageHeader.dataSize) else {
             return nil
         }
         
