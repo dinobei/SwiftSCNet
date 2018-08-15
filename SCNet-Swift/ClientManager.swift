@@ -24,7 +24,7 @@ open class ClientManager: NSObject {
         self.delegate = delegate
     }
 
-    public func start(timeout: Int) {
+    public func attach(timeout: Int) {
         guard let client = self.client else {
             return
         }
