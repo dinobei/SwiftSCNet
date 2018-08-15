@@ -11,8 +11,15 @@ import Foundation
 let HEADER_ELEMENTS = 3
 let MAX_PACKET_HEADER_SIZE = (7 * HEADER_ELEMENTS)
 
-public struct MessageHeader {
-    public var dataSize: Int
-    public var packetType: Int
-    public var cryptType: Int
+@objc public class MessageHeader: NSObject {
+
+    init(dataSize: Int, packetType: Int, cryptType: Int) {
+        self.dataSize = dataSize
+        self.packetType = packetType
+        self.cryptType = cryptType
+    }
+    
+    public var dataSize: Int = 0
+    public var packetType: Int = 0
+    public var cryptType: Int = 0
 };

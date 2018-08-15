@@ -16,12 +16,12 @@ open class ClientManager: NSObject {
     var isInterrupted: Bool = true
     var isSRThreadInterrupted: Bool = true
    
-    var callback: (MessageHeader, [UInt8])->()
+    var delegate: ClientManagerDelegate
     
-    public init(ip: String, port: Int32, completion: @escaping (MessageHeader, [UInt8])->()) {
+    public init(ip: String, port: Int32, delegate: ClientManagerDelegate) {
         self.client = TCPClient(address: ip, port: port)
-        self.callback = completion
         self.queue = BlockingQueue<Message>()
+        self.delegate = delegate
     }
 
     public func start(timeout: Int) {
@@ -32,15 +32,15 @@ open class ClientManager: NSObject {
         isInterrupted = false
         while !isInterrupted {
             
-            print("Attaching")
+            self.delegate.onAttaching?()
             let beforeDate = Date()
             switch client.connect(timeout: timeout) {
             case .success:
-                print("Attached") // Attached
+                self.delegate.onAttached?()
             case .failure(_):
                 let afterDate = Date()
                 
-                print("AttachFailed") // AttachFailed
+                self.delegate.onAttachFailed?()
                 
                 let takeTime = afterDate.timeIntervalSince1970 - beforeDate.timeIntervalSince1970
                 if Double(timeout) > takeTime {
@@ -84,7 +84,7 @@ open class ClientManager: NSObject {
                             continue
                         }
                         
-                        self.callback(messageHeader, data)
+                        self.delegate.onCallback?(messageHeader: messageHeader, data: data)
                     }
                     catch _ {
                         print("Disconnected from server (in recvThread)")
@@ -102,7 +102,7 @@ open class ClientManager: NSObject {
             client.close()
         }
         
-        print("Detached")
+        self.delegate.onDetached?()
         
         // clean up
         client.close()
