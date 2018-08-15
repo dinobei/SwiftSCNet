@@ -7,4 +7,5 @@ target 'SCNet-Swift' do
 
   # Pods for SCNet-Swift
   pod 'SwiftProtobuf', '~> 1.1.0'
+  pod 'SwiftSocket', :path => '../SwiftSocket'
 end
