@@ -25,7 +25,7 @@ open class ServerManager: NSObject {
                 let serverSession = ServerSession(sessionIndex: i, ip: ip, port: port, delegate: delegate)
                 
                 queue.async {
-                    serverSession.attach(timeout: 1000)
+                    serverSession.start(timeout: 1000)
                 }
                 
                 dict[i] = serverSession
@@ -41,7 +41,7 @@ open class ServerManager: NSObject {
             return false
         }
         
-        dict[sessionIndex]?.control(req: message)
+        dict[sessionIndex]?.request(message)
         return true
     }
     
@@ -50,13 +50,13 @@ open class ServerManager: NSObject {
             return
         }
         
-        dict[sessionIndex]?.detach()
+        dict[sessionIndex]?.interrupt()
         dict.removeValue(forKey: sessionIndex)
     }
     
     open func detachAll() {
         for serverSession in dict.values {
-            serverSession.detach()
+            serverSession.interrupt()
         }
         dict.removeAll()
     }

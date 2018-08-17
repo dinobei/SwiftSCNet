@@ -39,7 +39,7 @@ open class ServerSession: NSObject {
         self.serverManagerDelegate = delegate
     }
 
-    public func attach(timeout: Int) {
+    public func start(timeout: Int) {
         guard let client = self.client else {
             return
         }
@@ -131,11 +131,11 @@ open class ServerSession: NSObject {
         client.close()
     }
     
-    public func control(req: Message) {
-        self.queue.add(req)
+    public func request(_ message: Message) {
+        self.queue.add(message)
     }
 
-    public func detach() {
+    public func interrupt() {
         isInterrupted = true
         isSRThreadInterrupted = true
     }
