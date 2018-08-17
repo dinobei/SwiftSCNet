@@ -10,7 +10,7 @@ import Foundation
 import SwiftSocket
 import SwiftProtobuf
 
-open class ClientManager: NSObject {
+open class ServerSession: NSObject {
     let client: TCPClient?
     let queue: BlockingQueue<Message>
     var isInterrupted: Bool = true

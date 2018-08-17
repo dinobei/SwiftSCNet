@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B53AEAC21211C7400B58D61 /* SCNet_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B53AEAA21211C7400B58D61 /* SCNet_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B53AEB321211F5000B58D61 /* ClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AEB221211F5000B58D61 /* ClientManager.swift */; };
+		0B53AEB321211F5000B58D61 /* ServerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AEB221211F5000B58D61 /* ServerSession.swift */; };
 		0B53AF38212133F300B58D61 /* Varint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AF37212133F300B58D61 /* Varint.swift */; };
 		0B53AF6421214BDD00B58D61 /* BlockingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AF6321214BDD00B58D61 /* BlockingQueue.swift */; };
 		0B53AFD12121635300B58D61 /* Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AFD02121635300B58D61 /* Registry.swift */; };
@@ -23,7 +23,7 @@
 		0B53AEA721211C7400B58D61 /* SCNet_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SCNet_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B53AEAA21211C7400B58D61 /* SCNet_Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCNet_Swift.h; sourceTree = "<group>"; };
 		0B53AEAB21211C7400B58D61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0B53AEB221211F5000B58D61 /* ClientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientManager.swift; sourceTree = "<group>"; };
+		0B53AEB221211F5000B58D61 /* ServerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSession.swift; sourceTree = "<group>"; };
 		0B53AF37212133F300B58D61 /* Varint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Varint.swift; sourceTree = "<group>"; };
 		0B53AF6321214BDD00B58D61 /* BlockingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingQueue.swift; sourceTree = "<group>"; };
 		0B53AFD02121635300B58D61 /* Registry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registry.swift; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 			children = (
 				0B53AEAA21211C7400B58D61 /* SCNet_Swift.h */,
 				0B53AEAB21211C7400B58D61 /* Info.plist */,
-				0B53AEB221211F5000B58D61 /* ClientManager.swift */,
+				0B53AEB221211F5000B58D61 /* ServerSession.swift */,
 				0B5B2DAE2123F9D900C710FC /* ClientManagerDelegate.swift */,
 				0B53AF37212133F300B58D61 /* Varint.swift */,
 				0B53AF6321214BDD00B58D61 /* BlockingQueue.swift */,
@@ -195,7 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B53AEB321211F5000B58D61 /* ClientManager.swift in Sources */,
+				0B53AEB321211F5000B58D61 /* ServerSession.swift in Sources */,
 				0B53AFD12121635300B58D61 /* Registry.swift in Sources */,
 				0B53AF6421214BDD00B58D61 /* BlockingQueue.swift in Sources */,
 				0B53AF38212133F300B58D61 /* Varint.swift in Sources */,
