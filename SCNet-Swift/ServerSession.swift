@@ -140,7 +140,7 @@ open class ServerSession: NSObject {
         isSRThreadInterrupted = true
     }
     
-    public func send(request: Message) throws -> Bool {
+    private func send(request: Message) throws -> Bool {
         guard let client = self.client else {
             return false
         }
@@ -159,7 +159,7 @@ open class ServerSession: NSObject {
         return result.isSuccess
     }
     
-    public func recv() throws -> (MessageHeader, [UInt8])? {
+    private func recv() throws -> (MessageHeader, [UInt8])? {
         guard let client = self.client else {
             return nil
         }
