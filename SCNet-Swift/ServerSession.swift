@@ -11,17 +11,32 @@ import SwiftSocket
 import SwiftProtobuf
 
 open class ServerSession: NSObject {
+    var isMainServerSession: Bool = false
+    var sessionIndex: Int32 = 0
+    
     let client: TCPClient?
     let queue: BlockingQueue<Message>
     var isInterrupted: Bool = true
     var isSRThreadInterrupted: Bool = true
    
-    var delegate: ServerSessionDelegate
+    var serverSessionDelegate: ServerSessionDelegate?
+    var serverManagerDelegate: ServerManagerDelegate?
     
     public init(ip: String, port: Int32, delegate: ServerSessionDelegate) {
         self.client = TCPClient(address: ip, port: port)
         self.queue = BlockingQueue<Message>()
-        self.delegate = delegate
+        
+        self.isMainServerSession = true
+        self.serverSessionDelegate = delegate
+    }
+    
+    public init(sessionIndex: Int32, ip: String, port: Int32, delegate: ServerManagerDelegate) {
+        self.client = TCPClient(address: ip, port: port)
+        self.queue = BlockingQueue<Message>()
+
+        self.isMainServerSession = false
+        self.sessionIndex = sessionIndex
+        self.serverManagerDelegate = delegate
     }
 
     public func attach(timeout: Int) {
@@ -32,15 +47,21 @@ open class ServerSession: NSObject {
         isInterrupted = false
         while !isInterrupted {
             
-            self.delegate.onAttaching?()
+            if isMainServerSession { self.serverSessionDelegate?.onAttaching?() }
+            else { self.serverManagerDelegate?.onAttaching?(sessionIndex) }
+            
             let beforeDate = Date()
             switch client.connect(timeout: timeout) {
             case .success:
-                self.delegate.onAttached?()
+                if isMainServerSession { self.serverSessionDelegate?.onAttached?() }
+                else { self.serverManagerDelegate?.onAttached?(sessionIndex) }
+                
             case .failure(_):
                 let afterDate = Date()
                 
-                self.delegate.onAttachFailed?()
+                if isMainServerSession { self.serverSessionDelegate?.onAttachFailed?() }
+                else { self.serverManagerDelegate?.onAttachFailed?(sessionIndex) }
+                
                 
                 let takeTime = afterDate.timeIntervalSince1970 - beforeDate.timeIntervalSince1970
                 if Double(timeout) > takeTime {
@@ -84,7 +105,8 @@ open class ServerSession: NSObject {
                             continue
                         }
                         
-                        self.delegate.onCallback?(messageHeader: messageHeader, data: data)
+                        if self.isMainServerSession { self.serverSessionDelegate?.onCallback?(messageHeader: messageHeader, data: data) }
+                        else { self.serverManagerDelegate?.onCallback?(self.sessionIndex, messageHeader: messageHeader, data: data) }
                     }
                     catch _ {
                         print("Disconnected from server (in recvThread)")
@@ -102,7 +124,8 @@ open class ServerSession: NSObject {
             client.close()
         }
         
-        self.delegate.onDetached?()
+        if self.isMainServerSession { self.serverSessionDelegate?.onDetached?() }
+        else { self.serverManagerDelegate?.onDetached?(sessionIndex) }
         
         // clean up
         client.close()

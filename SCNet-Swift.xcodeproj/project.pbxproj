@@ -14,6 +14,8 @@
 		0B53AFD12121635300B58D61 /* Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AFD02121635300B58D61 /* Registry.swift */; };
 		0B53B0F52121A15000B58D61 /* MessageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53B0F42121A15000B58D61 /* MessageHeader.swift */; };
 		0B5B2DAF2123F9D900C710FC /* ServerSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DAE2123F9D900C710FC /* ServerSessionDelegate.swift */; };
+		0B5B2DDA2126D54A00C710FC /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DD92126D54A00C710FC /* ServerManager.swift */; };
+		0B5B2DDC2126D72300C710FC /* ServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DDB2126D72300C710FC /* ServerManagerDelegate.swift */; };
 		B4787C3883A5B55E4ADB9C56 /* Pods_SCNet_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C355F2B869C5DC0EE3451186 /* Pods_SCNet_Swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		0B53AFD02121635300B58D61 /* Registry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registry.swift; sourceTree = "<group>"; };
 		0B53B0F42121A15000B58D61 /* MessageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHeader.swift; sourceTree = "<group>"; };
 		0B5B2DAE2123F9D900C710FC /* ServerSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSessionDelegate.swift; sourceTree = "<group>"; };
+		0B5B2DD92126D54A00C710FC /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		0B5B2DDB2126D72300C710FC /* ServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerDelegate.swift; sourceTree = "<group>"; };
 		C355F2B869C5DC0EE3451186 /* Pods_SCNet_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SCNet_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -69,6 +73,8 @@
 				0B53AEAB21211C7400B58D61 /* Info.plist */,
 				0B53AEB221211F5000B58D61 /* ServerSession.swift */,
 				0B5B2DAE2123F9D900C710FC /* ServerSessionDelegate.swift */,
+				0B5B2DD92126D54A00C710FC /* ServerManager.swift */,
+				0B5B2DDB2126D72300C710FC /* ServerManagerDelegate.swift */,
 				0B53AF37212133F300B58D61 /* Varint.swift */,
 				0B53AF6321214BDD00B58D61 /* BlockingQueue.swift */,
 				0B53AFD02121635300B58D61 /* Registry.swift */,
@@ -198,7 +204,9 @@
 				0B53AEB321211F5000B58D61 /* ServerSession.swift in Sources */,
 				0B53AFD12121635300B58D61 /* Registry.swift in Sources */,
 				0B53AF6421214BDD00B58D61 /* BlockingQueue.swift in Sources */,
+				0B5B2DDC2126D72300C710FC /* ServerManagerDelegate.swift in Sources */,
 				0B53AF38212133F300B58D61 /* Varint.swift in Sources */,
+				0B5B2DDA2126D54A00C710FC /* ServerManager.swift in Sources */,
 				0B53B0F52121A15000B58D61 /* MessageHeader.swift in Sources */,
 				0B5B2DAF2123F9D900C710FC /* ServerSessionDelegate.swift in Sources */,
 			);
