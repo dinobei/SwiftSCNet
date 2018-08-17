@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public protocol ClientManagerDelegate {
+@objc public protocol ServerSessionDelegate {
     @objc optional func onAttaching()
     @objc optional func onAttached()
     @objc optional func onAttachFailed()

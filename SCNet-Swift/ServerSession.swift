@@ -16,9 +16,9 @@ open class ServerSession: NSObject {
     var isInterrupted: Bool = true
     var isSRThreadInterrupted: Bool = true
    
-    var delegate: ClientManagerDelegate
+    var delegate: ServerSessionDelegate
     
-    public init(ip: String, port: Int32, delegate: ClientManagerDelegate) {
+    public init(ip: String, port: Int32, delegate: ServerSessionDelegate) {
         self.client = TCPClient(address: ip, port: port)
         self.queue = BlockingQueue<Message>()
         self.delegate = delegate
