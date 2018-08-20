@@ -11,22 +11,20 @@ import Foundation
 let MAGIC_PACKET = "IJ"
 let MAGIC_PACKET_LENGTH = 2
 
-let HEADER_ELEMENTS = 5
+let HEADER_ELEMENTS = 4
 let MAX_PACKET_HEADER_SIZE = (7 * HEADER_ELEMENTS)
 
 @objc public class MessageHeader: NSObject {
 
-    init(dataSize: Int, packetType: Int, messageType: Int, cryptType: Int, reserved: Int) {
+    init(dataSize: Int, packetType: Int, messageType: Int, cryptType: Int) {
         self.dataSize = dataSize
         self.packetType = packetType
         self.messageType = packetType
         self.cryptType = cryptType
-        self.reserved = reserved
     }
     
     public var dataSize: Int = 0
     public var packetType: Int = 0
     public var messageType: Int = 0
     public var cryptType: Int = 0
-    public var reserved: Int = 0
 };

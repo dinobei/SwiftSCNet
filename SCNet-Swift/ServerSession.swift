@@ -152,8 +152,6 @@ open class ServerSession: NSObject {
         let packetTypeArr = encodeVarint(typeInt)
         let messageTypeArr = encodeVarint(0)
         let cryptTypeArr = encodeVarint(0)
-        let reservedArr = encodeVarint(0)
-        request_data.insert(contentsOf: reservedArr, at: 0)
         request_data.insert(contentsOf: cryptTypeArr, at: 0)
         request_data.insert(contentsOf: messageTypeArr, at: 0)
         request_data.insert(contentsOf: packetTypeArr, at: 0)
@@ -205,8 +203,7 @@ open class ServerSession: NSObject {
         let messageHeader = MessageHeader(dataSize: decodeVarint(headerBuffer[0]),
                                           packetType: decodeVarint(headerBuffer[1]),
                                           messageType: decodeVarint(headerBuffer[2]),
-                                          cryptType: decodeVarint(headerBuffer[3]),
-                                          reserved: decodeVarint(headerBuffer[4]))
+                                          cryptType: decodeVarint(headerBuffer[3]))
         
         guard let data = try client.read(messageHeader.dataSize) else {
             return nil
