@@ -150,10 +150,16 @@ open class ServerSession: NSObject {
         var request_data = try request.serializedData()
         let packetSizeArr = encodeVarint(Int32(request_data.count))
         let packetTypeArr = encodeVarint(typeInt)
+        let messageTypeArr = encodeVarint(0)
         let cryptTypeArr = encodeVarint(0)
+        let reservedArr = encodeVarint(0)
+        request_data.insert(contentsOf: reservedArr, at: 0)
         request_data.insert(contentsOf: cryptTypeArr, at: 0)
+        request_data.insert(contentsOf: messageTypeArr, at: 0)
         request_data.insert(contentsOf: packetTypeArr, at: 0)
         request_data.insert(contentsOf: packetSizeArr, at: 0)
+        request_data.insert(Array(MAGIC_PACKET.utf8)[1], at: 0)
+        request_data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
         
         let result = client.send(data: request_data)
         return result.isSuccess
@@ -161,6 +167,11 @@ open class ServerSession: NSObject {
     
     private func recv() throws -> (MessageHeader, [UInt8])? {
         guard let client = self.client else {
+            return nil
+        }
+        guard let magicPacket = try client.read(MAGIC_PACKET_LENGTH, timeout: 1),
+            magicPacket[0] == Array(MAGIC_PACKET.utf8)[0],
+            magicPacket[1] == Array(MAGIC_PACKET.utf8)[1] else {
             return nil
         }
         
@@ -191,7 +202,11 @@ open class ServerSession: NSObject {
         }
     
         // get MessageHeader
-        let messageHeader = MessageHeader(dataSize: decodeVarint(headerBuffer[0]), packetType: decodeVarint(headerBuffer[1]), cryptType: decodeVarint(headerBuffer[2]))
+        let messageHeader = MessageHeader(dataSize: decodeVarint(headerBuffer[0]),
+                                          packetType: decodeVarint(headerBuffer[1]),
+                                          messageType: decodeVarint(headerBuffer[2]),
+                                          cryptType: decodeVarint(headerBuffer[3]),
+                                          reserved: decodeVarint(headerBuffer[4]))
         
         guard let data = try client.read(messageHeader.dataSize) else {
             return nil
