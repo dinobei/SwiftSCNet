@@ -205,6 +205,11 @@ open class ServerSession: NSObject {
                                           messageType: decodeVarint(headerBuffer[2]),
                                           cryptType: decodeVarint(headerBuffer[3]))
         
+        if messageHeader.dataSize == 0 {
+            let emptyData: [Byte] = []
+            return (messageHeader, emptyData)
+        }
+        
         guard let data = try client.read(messageHeader.dataSize) else {
             return nil
         }
