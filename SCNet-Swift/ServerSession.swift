@@ -188,7 +188,7 @@ open class ServerSession: NSObject {
             
             headerBuffer[receivedHeaderComponent].append(data)
             
-            if data > 127 {
+            if (data&0xFF) > 127 {
                 continue
             }
             
@@ -210,11 +210,22 @@ open class ServerSession: NSObject {
             return (messageHeader, emptyData)
         }
         
-        guard let data = try client.read(messageHeader.dataSize) else {
-            return nil
+        var totalData: [Byte] = []
+        var readCount = 0
+        while true {
+            guard let partialData = try client.read(messageHeader.dataSize - readCount, timeout: 5) else {
+                return nil
+            }
+            
+            totalData.append(contentsOf: partialData)
+            readCount += partialData.count
+            if readCount >= messageHeader.dataSize {
+                break
+            }
+            
         }
         
-        return (messageHeader, data)
+        return (messageHeader, totalData)
     }
     
 }
