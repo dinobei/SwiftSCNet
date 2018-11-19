@@ -180,6 +180,7 @@ open class ServerSession: NSObject {
             headerBuffer.append([])
         }
     
+        var singleItemSize = 0
         while true {
             guard let _data = try client.read(1, timeout: 1),
                   let data = _data.first else {
@@ -189,9 +190,14 @@ open class ServerSession: NSObject {
             headerBuffer[receivedHeaderComponent].append(data)
             
             if (data&0xFF) > 127 {
+                singleItemSize += 1
+                guard singleItemSize <= 7 else {
+                    return nil
+                }
                 continue
             }
             
+            singleItemSize = 0
             receivedHeaderComponent += 1
             
             if receivedHeaderComponent == HEADER_ELEMENTS {
