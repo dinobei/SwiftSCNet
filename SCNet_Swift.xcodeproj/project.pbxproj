@@ -22,11 +22,11 @@
 
 /* Begin PBXBuildFile section */
 		0B53AEAC21211C7400B58D61 /* SCNet_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B53AEAA21211C7400B58D61 /* SCNet_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B53AEB321211F5000B58D61 /* ServerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AEB221211F5000B58D61 /* ServerSession.swift */; };
 		0B53AF38212133F300B58D61 /* Varint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AF37212133F300B58D61 /* Varint.swift */; };
 		0B53AF6421214BDD00B58D61 /* BlockingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AF6321214BDD00B58D61 /* BlockingQueue.swift */; };
 		0B53AFD12121635300B58D61 /* Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AFD02121635300B58D61 /* Registry.swift */; };
 		0B53B0F52121A15000B58D61 /* MessageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53B0F42121A15000B58D61 /* MessageHeader.swift */; };
+		0B570C4121675CD0003C3082 /* ServerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AEB221211F5000B58D61 /* ServerSession.swift */; };
 		0B5B2DAF2123F9D900C710FC /* ServerSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DAE2123F9D900C710FC /* ServerSessionDelegate.swift */; };
 		0B5B2DDA2126D54A00C710FC /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DD92126D54A00C710FC /* ServerManager.swift */; };
 		0B5B2DDC2126D72300C710FC /* ServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DDB2126D72300C710FC /* ServerManagerDelegate.swift */; };
@@ -190,12 +190,12 @@
 		0B53AE9E21211C7400B58D61 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = ijoon;
 				TargetAttributes = {
 					0B53AEA621211C7400B58D61 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1000;
 					};
 					0BCD7A3C2136FD02001BDB62 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -281,8 +281,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B53AEB321211F5000B58D61 /* ServerSession.swift in Sources */,
 				0B53AFD12121635300B58D61 /* Registry.swift in Sources */,
+				0B570C4121675CD0003C3082 /* ServerSession.swift in Sources */,
 				0B53AF6421214BDD00B58D61 /* BlockingQueue.swift in Sources */,
 				0B5B2DDC2126D72300C710FC /* ServerManagerDelegate.swift in Sources */,
 				0B53AF38212133F300B58D61 /* Varint.swift in Sources */,
@@ -338,6 +338,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -354,7 +355,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -401,6 +402,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -411,7 +413,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -440,6 +442,7 @@
 				);
 				INFOPLIST_FILE = "SCNet-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -449,7 +452,7 @@
 				PRODUCT_NAME = SCNet_Swift;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -473,6 +476,7 @@
 				);
 				INFOPLIST_FILE = "SCNet-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -481,7 +485,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ijoon.SCNet-Swift";
 				PRODUCT_NAME = SCNet_Swift;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -490,7 +494,7 @@
 		0BCD7A432136FD02001BDB62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -506,19 +510,19 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ijoon.macOS-SCNet-Swift";
 				PRODUCT_NAME = SCNet_Swift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		0BCD7A442136FD02001BDB62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -534,12 +538,12 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ijoon.macOS-SCNet-Swift";
 				PRODUCT_NAME = SCNet_Swift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
