@@ -12,7 +12,7 @@ import SwiftProtobuf
 open class Registry {
     private var dict: Dictionary<String, Int32> // Key, TypeInt
 
-    open static let sharedInstance = Registry()
+    public static let sharedInstance = Registry()
     
     private init() {
         dict = Dictionary<String, Int32>()

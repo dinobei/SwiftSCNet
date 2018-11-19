@@ -13,7 +13,7 @@ open class ServerManager: NSObject {
     let MAX_CONNECTION = 21
     private var dict: Dictionary<Int32, ServerSession>
     
-    open static let sharedInstance = ServerManager()
+    public static let sharedInstance = ServerManager()
     
     private override init() {
         dict = Dictionary<Int32, ServerSession>()
