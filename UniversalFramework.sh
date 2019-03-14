@@ -20,7 +20,7 @@ mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
 # Step 1. Build Device and Simulator versions
 if [ -e "${PROJECT_NAME}.xcworkspace" ]
 then
-xcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphoneos ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos OBJROOT="${OBJROOT}/DependantBuilds"
+xcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphoneos ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos OBJROOT="${OBJROOT}/DependantBuilds"
 else
 echo "${PROJECT_NAME}.xcworkspace not found."
 fi
