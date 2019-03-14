@@ -13,6 +13,4 @@ import Foundation
     @objc optional func onAttached(_ sessionIndex: Int32)
     @objc optional func onAttachFailed(_ sessionIndex: Int32)
     @objc optional func onDetached(_ sessionIndex: Int32)
-    
-    @objc optional func onCallback(_ sessionIndex: Int32, messageHeader: MessageHeader, data: [UInt8])
 }

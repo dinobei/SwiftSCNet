@@ -13,6 +13,4 @@ import Foundation
     @objc optional func onAttached()
     @objc optional func onAttachFailed()
     @objc optional func onDetached()
-    
-    @objc optional func onCallback(messageHeader: MessageHeader, data: [UInt8])
 }

@@ -22,6 +22,8 @@ open class ServerSession: NSObject {
     var serverSessionDelegate: ServerSessionDelegate?
     var serverManagerDelegate: ServerManagerDelegate?
     
+    let registry = Registry.sharedInstance
+    
     public init(ip: String, port: Int32, delegate: ServerSessionDelegate) {
         self.client = TCPClient(address: ip, port: port)
         self.queue = BlockingQueue<Message>()
@@ -104,9 +106,31 @@ open class ServerSession: NSObject {
                             // timeout RecvThread
                             continue
                         }
+
+                        guard let messageType = MESSAGE_TYPE(rawValue: Int32(messageHeader.messageType)) else {
+                            print("Unknown message type")
+                            break
+                        }
                         
-                        if self.isMainServerSession { self.serverSessionDelegate?.onCallback?(messageHeader: messageHeader, data: data) }
-                        else { self.serverManagerDelegate?.onCallback?(self.sessionIndex, messageHeader: messageHeader, data: data) }
+                        switch messageType {
+                        case .RAWBYTE:
+                            do {
+                                try self.registry.getRawByteCallback(packetType: Int32(messageHeader.packetType))?(Int32(messageHeader.packetType), data)
+                            }
+                            catch {
+                            }
+                        case .PROTOBUF:
+                            do {
+                                let messageType = try self.registry.getMessageType(packetType: Int32(messageHeader.packetType))
+                                let message = try messageType.init(serializedData: Data(data))
+                                let callback = try self.registry.getProtobufCallback(packetType: Int32(messageHeader.packetType))
+                                callback?(message)
+                            }
+                            catch {
+                            }
+                        default:
+                            ()
+                        }
                     }
                     catch _ {
                         print("Disconnected from server (in recvThread)")
@@ -135,6 +159,12 @@ open class ServerSession: NSObject {
         self.queue.add(message)
     }
 
+    public func request(packetType: Int32, message: String) throws {
+        if( try !send(packetType: packetType, message: message)) {
+            print("send failed")
+        }
+    }
+    
     public func interrupt() {
         isInterrupted = true
         isSRThreadInterrupted = true
@@ -145,13 +175,15 @@ open class ServerSession: NSObject {
             return false
         }
         
-        let typeInt = try Registry.sharedInstance.getTypeInt(message: request)
+        let packetType = try registry.getPacketType(request)
         
         var request_data = try request.serializedData()
         let packetSizeArr = encodeVarint(Int32(request_data.count))
-        let packetTypeArr = encodeVarint(typeInt)
-        let messageTypeArr = encodeVarint(0)
+        let packetTypeArr = encodeVarint(packetType)
+        let messageTypeArr = encodeVarint(MESSAGE_TYPE.PROTOBUF.rawValue)
         let cryptTypeArr = encodeVarint(0)
+        let connectionIDArr = encodeVarint(0)
+        request_data.insert(contentsOf: connectionIDArr, at: 0)
         request_data.insert(contentsOf: cryptTypeArr, at: 0)
         request_data.insert(contentsOf: messageTypeArr, at: 0)
         request_data.insert(contentsOf: packetTypeArr, at: 0)
@@ -160,6 +192,29 @@ open class ServerSession: NSObject {
         request_data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
         
         let result = client.send(data: request_data)
+        return result.isSuccess
+    }
+    
+    private func send(packetType: Int32, message: String) throws -> Bool {
+        guard let client = self.client else {
+            return false
+        }
+
+        var data = Array(message.utf8)
+        let packetSizeArr = encodeVarint(Int32(message.count))
+        let packetTypeArr = encodeVarint(packetType)
+        let messageTypeArr = encodeVarint(MESSAGE_TYPE.RAWBYTE.rawValue)
+        let cryptTypeArr = encodeVarint(0)
+        let connectionIDArr = encodeVarint(0)
+        data.insert(contentsOf: connectionIDArr, at: 0)
+        data.insert(contentsOf: cryptTypeArr, at: 0)
+        data.insert(contentsOf: messageTypeArr, at: 0)
+        data.insert(contentsOf: packetTypeArr, at: 0)
+        data.insert(contentsOf: packetSizeArr, at: 0)
+        data.insert(Array(MAGIC_PACKET.utf8)[1], at: 0)
+        data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
+
+        let result = client.send(data: data)
         return result.isSuccess
     }
     
@@ -209,8 +264,8 @@ open class ServerSession: NSObject {
         let messageHeader = MessageHeader(dataSize: decodeVarint(headerBuffer[0]),
                                           packetType: decodeVarint(headerBuffer[1]),
                                           messageType: decodeVarint(headerBuffer[2]),
-                                          cryptType: decodeVarint(headerBuffer[3]))
-        
+                                          cryptType: decodeVarint(headerBuffer[3]),
+                                          connectionID: decodeVarint(headerBuffer[4]))
         if messageHeader.dataSize == 0 {
             let emptyData: [Byte] = []
             return (messageHeader, emptyData)
