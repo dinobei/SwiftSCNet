@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#include <ifaddrs.h>
 
 //! Project version number for SCNet_Swift.
 FOUNDATION_EXPORT double SCNet_SwiftVersionNumber;

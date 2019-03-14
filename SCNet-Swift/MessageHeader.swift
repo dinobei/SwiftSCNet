@@ -14,6 +14,9 @@ let MAGIC_PACKET_LENGTH = 2
 let HEADER_ELEMENTS = 5
 let MAX_PACKET_HEADER_SIZE = (7 * HEADER_ELEMENTS)
 
+let MAX_PACKET_SIZE = 655350
+let MAX_WAIT_SEND = 300
+
 @objc public class MessageHeader: NSObject {
 
     init(dataSize: Int, packetType: Int, messageType: Int, cryptType: Int, connectionID: Int) {
