@@ -24,6 +24,8 @@ open class RendezvousClient {
     
     let registry = Registry.sharedInstance
     
+    var isInterrupted: Bool
+    
     public required init(rendezvousServerIP: String, port: Int, delegate: RendezvousClientDelegate) {
         self.rendezvousServerIP = rendezvousServerIP
         self.rendezvousServerPort = port
@@ -34,6 +36,13 @@ open class RendezvousClient {
         kcpPeerMap = [String : KCPPeer]()
         
         udpClient = UDPClient()
+        
+        isInterrupted = true
+    }
+    
+    deinit {
+        isInterrupted = true
+        udpClient.close()
     }
     
     func getKcpPeer(ip: String, port: Int) -> KCPPeer {
@@ -48,7 +57,13 @@ open class RendezvousClient {
         return newKcpPeer
     }
     
-    public func start() {
+    public func start() -> Bool {
+        guard isInterrupted else {
+            NSLog("already started")
+            return false
+        }
+        isInterrupted = false
+        
         let registerDQ = DispatchQueue.init(label: "registerDQ")
         
         let loopInterval: Int = 5 * 1000
@@ -72,7 +87,7 @@ open class RendezvousClient {
             }
             var lastRegistrationTime = Date().millisecondsSince1970
             
-            while(true) {
+            while(!self.isInterrupted) {
                 isleep(millisecond: loopInterval)
                 
                 let current = Date().millisecondsSince1970
@@ -85,11 +100,12 @@ open class RendezvousClient {
                 }
                 
             }
+            print("registerDQ finished")
         }
         
         let rawRecvDQ = DispatchQueue.init(label: "rawRecvDQ")
         rawRecvDQ.async {
-            while(true) {
+            while(!self.isInterrupted) {
                 let (byteArrayOptional, ip, port) = self.udpClient.recv(3000)
                 guard let byteArray = byteArrayOptional else {
                     print("recv timeout")
@@ -99,12 +115,13 @@ open class RendezvousClient {
                 let kcpPeer = self.getKcpPeer(ip: ip, port: port)
                 let _ = kcpPeer.kcp.input(data: Data(byteArray))
             }
+            print("rawRecvDQ finished")
         }
         
         let recvDQ = DispatchQueue.init(label: "recvDQ")
         recvDQ.async {
             let minInterval = 10
-            while(true) {
+            while(!self.isInterrupted) {
                 let current = Date().millisecondsSince1970
 
                 for kcpPeer in self.kcpPeerMap.values {
@@ -119,9 +136,24 @@ open class RendezvousClient {
 
                 isleep(millisecond: minInterval)
             }
+            print("recvDQ finished")
         }
         
-        
+        return true
+    }
+    
+    public func stop() -> Bool {
+        guard !isInterrupted else {
+            NSLog("already stopped")
+            return false
+        }
+        isCallConnCallback = false
+        isInterrupted = true
+        udpClient.close()
+        udpClient = UDPClient()
+        kcpPeerMap.removeAll()
+        rendezvousSessionMap.removeAll()
+        return true
     }
     
     func callback(_ kcpPeer: KCPPeer, buffer: [UInt8], size: Int) {
