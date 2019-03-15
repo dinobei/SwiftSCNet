@@ -8,34 +8,34 @@
 
 import Foundation
 
-class RendezvousSession {
+open class RendezvousSession: NSObject {
     let connectionID: Int
     
     var publicKCPPeer: KCPPeer?
     var privateKCPPeer: KCPPeer?
     var relayKCPPeer: KCPPeer?
     
-    required init(connectionID: Int) {
+    public required init(connectionID: Int) {
         self.connectionID = connectionID
     }
     
-    func isConnected() -> Bool {
+    public func isConnected() -> Bool {
         return relayKCPPeer != nil || publicKCPPeer != nil || privateKCPPeer != nil
     }
     
-    func getConnectionID() -> Int {
+    public func getConnectionID() -> Int {
         return connectionID
     }
     
-    func getPublicAddress() -> String? {
+    public func getPublicAddress() -> String? {
         return publicKCPPeer?.getKey()
     }
     
-    func getPrivateAddress() -> String? {
+    public func getPrivateAddress() -> String? {
         return privateKCPPeer?.getKey()
     }
     
-    func getRelayAddress() -> String? {
+    public func getRelayAddress() -> String? {
         return relayKCPPeer?.getKey()
     }
 }

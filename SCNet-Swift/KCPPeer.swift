@@ -41,14 +41,19 @@ class KCPPeer {
         }
     }
 
-    func send(connectionID: Int, packetType: RendezvousPacketType, data: String) -> Bool {
+    func send(connectionID: Int, packetType: RendezvousPacketType, data: String?) -> Bool {
         return send(connectionID: Int32(connectionID), packetType: Int32(packetType.rawValue), message: data)
     }
 
-    fileprivate func send(connectionID: Int32, packetType: Int32, message: String) -> Bool {
+    fileprivate func send(connectionID: Int32, packetType: Int32, message: String?) -> Bool {
         
-        var data = Array(message.utf8)
-        let packetSizeArr = encodeVarint(Int32(message.count))
+        var data = [UInt8]()
+        var packetSize: Int32 = 0
+        if let message = message {
+            data = Array(message.utf8)
+            packetSize = Int32(message.count)
+        }
+        let packetSizeArr = encodeVarint(packetSize)
         let packetTypeArr = encodeVarint(packetType)
         let messageTypeArr = encodeVarint(MESSAGE_TYPE.RAWBYTE.rawValue)
         let cryptTypeArr = encodeVarint(0)

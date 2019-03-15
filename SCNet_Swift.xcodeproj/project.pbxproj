@@ -28,6 +28,8 @@
 		0B003DE4223A283F004087AE /* Date+milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DE3223A283F004087AE /* Date+milliseconds.swift */; };
 		0B003DE6223A2B7A004087AE /* RendezvousSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DE5223A2B7A004087AE /* RendezvousSession.swift */; };
 		0B003DE8223A36C0004087AE /* RendezvousPacketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DE7223A36C0004087AE /* RendezvousPacketType.swift */; };
+		0B003DEA223ACD87004087AE /* RendezvousClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DE9223ACD87004087AE /* RendezvousClientDelegate.swift */; };
+		0B003DEC223ADDD0004087AE /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DEB223ADDD0004087AE /* Connection.swift */; };
 		0B53AEAC21211C7400B58D61 /* SCNet_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B53AEAA21211C7400B58D61 /* SCNet_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B53AF38212133F300B58D61 /* Varint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AF37212133F300B58D61 /* Varint.swift */; };
 		0B53AF6421214BDD00B58D61 /* BlockingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53AF6321214BDD00B58D61 /* BlockingQueue.swift */; };
@@ -37,6 +39,7 @@
 		0B5B2DAF2123F9D900C710FC /* ServerSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DAE2123F9D900C710FC /* ServerSessionDelegate.swift */; };
 		0B5B2DDA2126D54A00C710FC /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DD92126D54A00C710FC /* ServerManager.swift */; };
 		0B5B2DDC2126D72300C710FC /* ServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B2DDB2126D72300C710FC /* ServerManagerDelegate.swift */; };
+		0B620CEC223B443000976C89 /* UIDevice+ipAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B620CEB223B443000976C89 /* UIDevice+ipAddress.swift */; };
 		0BCD7A4621370093001BDB62 /* UniversalFramework.sh in Resources */ = {isa = PBXBuildFile; fileRef = 0BCD7A4521370093001BDB62 /* UniversalFramework.sh */; };
 		B4787C3883A5B55E4ADB9C56 /* Pods_SCNet_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C355F2B869C5DC0EE3451186 /* Pods_SCNet_Swift.framework */; };
 /* End PBXBuildFile section */
@@ -51,6 +54,8 @@
 		0B003DE3223A283F004087AE /* Date+milliseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+milliseconds.swift"; sourceTree = "<group>"; };
 		0B003DE5223A2B7A004087AE /* RendezvousSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendezvousSession.swift; sourceTree = "<group>"; };
 		0B003DE7223A36C0004087AE /* RendezvousPacketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendezvousPacketType.swift; sourceTree = "<group>"; };
+		0B003DE9223ACD87004087AE /* RendezvousClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendezvousClientDelegate.swift; sourceTree = "<group>"; };
+		0B003DEB223ADDD0004087AE /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		0B53AEA721211C7400B58D61 /* SCNet_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SCNet_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B53AEAA21211C7400B58D61 /* SCNet_Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCNet_Swift.h; sourceTree = "<group>"; };
 		0B53AEAB21211C7400B58D61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,6 +67,7 @@
 		0B5B2DAE2123F9D900C710FC /* ServerSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSessionDelegate.swift; sourceTree = "<group>"; };
 		0B5B2DD92126D54A00C710FC /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		0B5B2DDB2126D72300C710FC /* ServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerDelegate.swift; sourceTree = "<group>"; };
+		0B620CEB223B443000976C89 /* UIDevice+ipAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+ipAddress.swift"; sourceTree = "<group>"; };
 		0BCD7A4521370093001BDB62 /* UniversalFramework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = UniversalFramework.sh; sourceTree = "<group>"; };
 		C355F2B869C5DC0EE3451186 /* Pods_SCNet_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SCNet_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -112,11 +118,14 @@
 				0B53AFD02121635300B58D61 /* Registry.swift */,
 				0B53B0F42121A15000B58D61 /* MessageHeader.swift */,
 				0B003DD9223A245E004087AE /* RendezvousClient.swift */,
+				0B003DE9223ACD87004087AE /* RendezvousClientDelegate.swift */,
 				0B003DDB223A25B1004087AE /* NetworkUtils.swift */,
 				0B003DE1223A26CC004087AE /* KCPPeer.swift */,
 				0B003DE3223A283F004087AE /* Date+milliseconds.swift */,
 				0B003DE5223A2B7A004087AE /* RendezvousSession.swift */,
 				0B003DE7223A36C0004087AE /* RendezvousPacketType.swift */,
+				0B003DEB223ADDD0004087AE /* Connection.swift */,
+				0B620CEB223B443000976C89 /* UIDevice+ipAddress.swift */,
 			);
 			path = "SCNet-Swift";
 			sourceTree = "<group>";
@@ -265,9 +274,12 @@
 				0B5B2DDC2126D72300C710FC /* ServerManagerDelegate.swift in Sources */,
 				0B003DD8223A1448004087AE /* kcp.swift in Sources */,
 				0B003DE4223A283F004087AE /* Date+milliseconds.swift in Sources */,
+				0B003DEA223ACD87004087AE /* RendezvousClientDelegate.swift in Sources */,
 				0B53AF38212133F300B58D61 /* Varint.swift in Sources */,
 				0B003DDC223A25B1004087AE /* NetworkUtils.swift in Sources */,
+				0B003DEC223ADDD0004087AE /* Connection.swift in Sources */,
 				0B5B2DDA2126D54A00C710FC /* ServerManager.swift in Sources */,
+				0B620CEC223B443000976C89 /* UIDevice+ipAddress.swift in Sources */,
 				0B53B0F52121A15000B58D61 /* MessageHeader.swift in Sources */,
 				0B5B2DAF2123F9D900C710FC /* ServerSessionDelegate.swift in Sources */,
 				0B003DDA223A245E004087AE /* RendezvousClient.swift in Sources */,
