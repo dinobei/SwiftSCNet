@@ -110,7 +110,7 @@ open class RendezvousClient {
                 for kcpPeer in self.kcpPeerMap.values {
                     let data = kcpPeer.kcp.recv(dataSize: MAX_PACKET_SIZE)
 
-                    kcpPeer.kcp.update(current: UInt32(truncating: NSNumber(value: current)))
+                    kcpPeer.kcp.update(current: UInt32(current & 0x7FFFFFFF))
                     if let data = data {
                         let byteArray: [UInt8] = Array(data)
                         self.callback(kcpPeer, buffer: byteArray, size: byteArray.count)
