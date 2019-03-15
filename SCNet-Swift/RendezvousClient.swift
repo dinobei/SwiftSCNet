@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftSocket
+import SwiftProtobuf
 
 open class RendezvousClient {
     var rendezvousServerIP: String!
@@ -20,6 +21,8 @@ open class RendezvousClient {
     
     var delegate: RendezvousClientDelegate
     var isCallConnCallback: Bool
+    
+    let registry = Registry.sharedInstance
     
     public required init(rendezvousServerIP: String, port: Int, delegate: RendezvousClientDelegate) {
         self.rendezvousServerIP = rendezvousServerIP
@@ -173,8 +176,6 @@ open class RendezvousClient {
             data = Array(buffer[cursor...size-1])
         }
         
-        print("messageHeader: \(messageHeader.dataSize), \(messageHeader.packetType), \(messageHeader.messageType), \(messageHeader.cryptType), \(messageHeader.connectionID)")
-        
         kcpPeer.lastPing = Date().millisecondsSince1970
         
         guard let messageType = MESSAGE_TYPE.init(rawValue: Int32(messageHeader.messageType)) else {
@@ -183,8 +184,14 @@ open class RendezvousClient {
         
         switch messageType {
         case .PROTOBUF:
-            ()
-            // callback to user, MAKE message using (messageHeader, data)
+            do {
+                let messageType = try self.registry.getMessageType(packetType: Int32(messageHeader.packetType))
+                let message = try messageType.init(serializedData: Data(data))
+                let callback = try self.registry.getProtobufCallback(packetType: Int32(messageHeader.packetType))
+                callback?(message)
+            }
+            catch {
+            }
             return
         case .RAWBYTE:
             let rendezvousPacketType = RendezvousPacketType.init(rawValue: messageHeader.packetType)
@@ -192,7 +199,12 @@ open class RendezvousClient {
                 break
             }
             
-            // callback to user, (messageHeader.packetType, data)
+            do {
+                try self.registry.getRawByteCallback(packetType: Int32(messageHeader.packetType))?(Int32(messageHeader.packetType), data)
+            }
+            catch {
+            }
+            
             return
         default:
             ()
@@ -519,6 +531,20 @@ open class RendezvousClient {
         if !rendezvousKcpPeer.send(connectionID: 0, packetType: .CONNECTION_REQUEST, data: "\(ip) \(port)") {
             NSLog("send failed")
         }
+    }
+    
+    public func send(message: Message) {
+        let rendezvousKcpPeer = getKcpPeer(ip: rendezvousServerIP, port: rendezvousServerPort)
+        
+        do {
+            if try !rendezvousKcpPeer.send(connectionID: 0, request: message) {
+                NSLog("send failed")
+            }
+
+        }
+        catch {
+            print("error : \(error)")
+        }        
     }
 }
 

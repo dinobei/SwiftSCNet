@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftSocket
+import SwiftProtobuf
 
 class KCPPeer {
     let ip: String
@@ -19,6 +20,8 @@ class KCPPeer {
     
     let date = Date()
     let udpClient: UDPClient
+    
+    let registry = Registry.sharedInstance
     
     required init(_ udpClient: UDPClient, ip: String, port: Int) {
         self.udpClient = udpClient
@@ -73,6 +76,30 @@ class KCPPeer {
         return true
     }
     
+    func send(connectionID: Int32, request: Message) throws -> Bool {
+        
+        let packetType = try registry.getPacketType(request)
+        
+        var request_data = try request.serializedData()
+        let packetSizeArr = encodeVarint(Int32(request_data.count))
+        let packetTypeArr = encodeVarint(packetType)
+        let messageTypeArr = encodeVarint(MESSAGE_TYPE.PROTOBUF.rawValue)
+        let cryptTypeArr = encodeVarint(0)
+        let connectionIDArr = encodeVarint(connectionID)
+        request_data.insert(contentsOf: connectionIDArr, at: 0)
+        request_data.insert(contentsOf: cryptTypeArr, at: 0)
+        request_data.insert(contentsOf: messageTypeArr, at: 0)
+        request_data.insert(contentsOf: packetTypeArr, at: 0)
+        request_data.insert(contentsOf: packetSizeArr, at: 0)
+        request_data.insert(Array(MAGIC_PACKET.utf8)[1], at: 0)
+        request_data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
+        
+        let result = kcp.send(buffer: Data(request_data))
+        if result < 0 {
+            return false
+        }
+        return true
+    }
     
     func getKey() -> String {
         return key
