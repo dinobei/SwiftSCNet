@@ -115,7 +115,7 @@ open class ServerSession: NSObject {
                         switch messageType {
                         case .RAWBYTE:
                             do {
-                                try self.registry.getRawByteCallback(packetType: Int32(messageHeader.packetType))?(Int32(messageHeader.packetType), data)
+                                try self.registry.getRawByteCallback(packetType: Int32(messageHeader.packetType))?(data)
                             }
                             catch {
                             }
