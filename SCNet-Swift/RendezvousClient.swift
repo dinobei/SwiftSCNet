@@ -227,7 +227,7 @@ open class RendezvousClient {
             return
         case .RAWBYTE:
             let rendezvousPacketType = RendezvousPacketType.init(rawValue: messageHeader.packetType)
-            guard rendezvousPacketType == nil else {
+            guard rendezvousPacketType == nil || rendezvousPacketType == RendezvousPacketType.NONE else {
                 break
             }
             
