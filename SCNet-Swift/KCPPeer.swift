@@ -15,6 +15,7 @@ class KCPPeer {
     let port: Int
     let key: String
     
+    let lock: NSLock = NSLock()
     var kcp: IKCPCB
     var lastPing: Int
     
@@ -69,7 +70,9 @@ class KCPPeer {
         data.insert(Array(MAGIC_PACKET.utf8)[1], at: 0)
         data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
         
+        lock.lock()
         let result = kcp.send(buffer: Data(data))
+        lock.unlock()
         if result < 0 {
             return false
         }
@@ -94,7 +97,9 @@ class KCPPeer {
         request_data.insert(Array(MAGIC_PACKET.utf8)[1], at: 0)
         request_data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
         
+        lock.lock()
         let result = kcp.send(buffer: Data(request_data))
+        lock.unlock()
         if result < 0 {
             return false
         }

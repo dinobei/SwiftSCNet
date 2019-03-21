@@ -113,7 +113,9 @@ open class RendezvousClient {
                 }
 
                 let kcpPeer = self.getKcpPeer(ip: ip, port: port)
+                kcpPeer.lock.lock()
                 let _ = kcpPeer.kcp.input(data: Data(byteArray))
+                kcpPeer.lock.unlock()
             }
             print("rawRecvDQ finished")
         }
@@ -125,9 +127,11 @@ open class RendezvousClient {
                 let current = Date().millisecondsSince1970
 
                 for kcpPeer in self.kcpPeerMap.values {
+                    kcpPeer.lock.lock()
                     let data = kcpPeer.kcp.recv(dataSize: MAX_PACKET_SIZE)
 
                     kcpPeer.kcp.update(current: UInt32(current & 0x7FFFFFFF))
+                    kcpPeer.lock.unlock()
                     if let data = data {
                         let byteArray: [UInt8] = Array(data)
                         self.callback(kcpPeer, buffer: byteArray, size: byteArray.count)
