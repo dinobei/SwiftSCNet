@@ -15,4 +15,7 @@ import Foundation
     @objc optional func onConnecting(_ connectionID: Int)
     @objc optional func onConnected(_ rendezvousSession: RendezvousSession, _ connection: Connection)
     @objc optional func onConnectionUpdate(_ rendezvousSession: RendezvousSession, _ connection: Connection)
+    
+    @objc optional func onConnectionRemoved(_ rendezvousSession: RendezvousSession, _ connection: Connection)
+    @objc optional func onDisconnected(_ connectionID: Int)
 }

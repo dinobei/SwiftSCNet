@@ -98,6 +98,52 @@ open class RendezvousClient {
                         NSLog("send failed")
                     }
                 }
+
+                let timeout = 60 * 1000
+                for kcpPeerItem in self.kcpPeerMap {
+                    let kcpPeer = kcpPeerItem.value
+                    if kcpPeer.lastPing + timeout < current {
+                        self.kcpPeerMap.removeValue(forKey: kcpPeerItem.key)
+                    }
+                    else if kcpPeer.lastPing + pingInterval < current {
+                        if !kcpPeer.send(connectionID: 0, packetType: RendezvousPacketType.PING_REQUEST, data: nil) {
+                            NSLog("send failed")
+                        }
+                    }
+                }
+
+                for rendezvousSessionPair in self.rendezvousSessionMap {
+                    let rendezvousSession = rendezvousSessionPair.value
+                    
+                    if let relayKcpPeer = rendezvousSession.relayKCPPeer {
+                        if relayKcpPeer.lastPing + timeout < current {
+                            NSLog("relay peer removed, \(relayKcpPeer.lastPing)")
+                            rendezvousSession.relayKCPPeer = nil
+                            self.delegate.onConnectionRemoved?(rendezvousSession, Connection.RELAY)
+                        }
+                    }
+                    if let publicKcpPeer = rendezvousSession.publicKCPPeer {
+                        if publicKcpPeer.lastPing + timeout < current {
+                            NSLog("public peer removed, \(publicKcpPeer.lastPing)")
+                            rendezvousSession.publicKCPPeer = nil
+                            self.delegate.onConnectionRemoved?(rendezvousSession, Connection.PUBLIC)
+                        }
+                    }
+                    if let privateKcpPeer = rendezvousSession.privateKCPPeer {
+                        if privateKcpPeer.lastPing + timeout < current {
+                            NSLog("private peer removed, \(privateKcpPeer.lastPing)")
+                            rendezvousSession.privateKCPPeer = nil
+                            self.delegate.onConnectionRemoved?(rendezvousSession, Connection.PRIVATE)
+                        }
+                    }
+                    
+                    if !rendezvousSession.isConnected() {
+                        let connectionID = rendezvousSession.connectionID
+                        self.rendezvousSessionMap.removeValue(forKey: rendezvousSessionPair.key)
+                        self.delegate.onDisconnected?(connectionID)
+                        NSLog("Disconnected, connectionID=\(connectionID)")
+                    }
+                }
                 
             }
             print("registerDQ finished")
