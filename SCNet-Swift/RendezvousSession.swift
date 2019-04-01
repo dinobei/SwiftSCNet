@@ -11,23 +11,55 @@ import SwiftProtobuf
 
 open class RendezvousSession: NSObject {
     let connectionID: Int
-    
-    var publicKCPPeer: KCPPeer?
-    var privateKCPPeer: KCPPeer?
-    var relayKCPPeer: KCPPeer?
-    
+    fileprivate let lock = NSLock()
     fileprivate let registry = Registry.sharedInstance
     
-    public required init(connectionID: Int) {
-        self.connectionID = connectionID
+    fileprivate var _publicKCPPeer: KCPPeer?
+    var publicKCPPeer: KCPPeer? {
+        get {
+            lock.lock()
+            let kcpPeer = _publicKCPPeer
+            lock.unlock()
+            return kcpPeer
+        }
+        
+        set(newKcpPeer) {
+            lock.lock()
+            _publicKCPPeer = newKcpPeer
+            lock.unlock()
+        }
     }
     
-    public func isConnected() -> Bool {
-        return relayKCPPeer != nil || publicKCPPeer != nil || privateKCPPeer != nil
+    fileprivate var _privateKCPPeer: KCPPeer?
+    var privateKCPPeer: KCPPeer? {
+        get {
+            lock.lock()
+            let kcpPeer = _privateKCPPeer
+            lock.unlock()
+            return kcpPeer
+        }
+        
+        set(newKcpPeer) {
+            lock.lock()
+            _privateKCPPeer = newKcpPeer
+            lock.unlock()
+        }
     }
     
-    public func getConnectionID() -> Int {
-        return connectionID
+    fileprivate var _relayKCPPeer: KCPPeer?
+    var relayKCPPeer: KCPPeer? {
+        get {
+            lock.lock()
+            let kcpPeer = _relayKCPPeer
+            lock.unlock()
+            return kcpPeer
+        }
+        
+        set(newKcpPeer) {
+            lock.lock()
+            _relayKCPPeer = newKcpPeer
+            lock.unlock()
+        }
     }
     
     public func getPublicAddress() -> String? {
@@ -42,21 +74,27 @@ open class RendezvousSession: NSObject {
         return relayKCPPeer?.getKey()
     }
     
+    public required init(connectionID: Int) {
+        self.connectionID = connectionID
+    }
+    
+    public func isConnected() -> Bool {
+        return relayKCPPeer != nil || publicKCPPeer != nil || privateKCPPeer != nil
+    }
+    
+    public func getConnectionID() -> Int {
+        return connectionID
+    }
+    
     public func send(request: Message) throws -> Bool {
-        var kcpPeer: KCPPeer?
-        var isRelay = false
-        if privateKCPPeer != nil {
-            kcpPeer = privateKCPPeer
+        if let kcpPeer = privateKCPPeer {
+            return try send(kcpPeer, request: request, isRelay: false)
         }
-        else if publicKCPPeer != nil {
-            kcpPeer = publicKCPPeer
+        else if let kcpPeer = publicKCPPeer {
+            return try send(kcpPeer, request: request, isRelay: false)
         }
-        else if relayKCPPeer != nil {
-            kcpPeer = relayKCPPeer
-            isRelay = true
-        }
-        if let kcpPeer = kcpPeer {
-            return try send(kcpPeer, request: request, isRelay: isRelay)
+        else if let kcpPeer = relayKCPPeer {
+            return try send(kcpPeer, request: request, isRelay: true)
         }
         
         return false

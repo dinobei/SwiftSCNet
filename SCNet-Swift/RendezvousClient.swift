@@ -10,6 +10,9 @@ import Foundation
 import SwiftSocket
 import SwiftProtobuf
 
+let kcpPeerSyncDQ = DispatchQueue.init(label: "kcp peer sync dq")
+let rendezvousSessionSyncDQ = DispatchQueue.init(label: "rendezvous session sync dq")
+
 open class RendezvousClient {
     var rendezvousServerIP: String!
     var rendezvousServerPort: Int!
@@ -66,11 +69,11 @@ open class RendezvousClient {
         
         let registerDQ = DispatchQueue.init(label: "registerDQ")
         
+        let rendezvousKcpPeer = self.getKcpPeer(ip: self.rendezvousServerIP, port: self.rendezvousServerPort)
         let loopInterval: Int = 5 * 1000
         let pingInterval: Int = 30 * 1000
+        let timeout: Int = 60 * 1000
         registerDQ.async {
-            let rendezvousKcpPeer = self.getKcpPeer(ip: self.rendezvousServerIP, port: self.rendezvousServerPort)
-
             var address = "0.0.0.0"
             if let _address = getWiFiAddress() {
                 address = _address
@@ -81,15 +84,10 @@ open class RendezvousClient {
             
             print("local Address: \(address):\(rendezvousKcpPeer.udpClient.getLocalPort())")
             
-            let data = "\(address) \(rendezvousKcpPeer.udpClient.getLocalPort()) ios"
-            if !rendezvousKcpPeer.send(connectionID: 0, packetType: RendezvousPacketType.REGISTRATION_RENDEZVOUS_CLIENT_REQUEST, data: data) {
-                NSLog("send failed")
-            }
-            var lastRegistrationTime = Date().millisecondsSince1970
-            
+            let data = "\(address) \(rendezvousKcpPeer.udpClient.getLocalPort()) \(UIDevice.current.identifierForVendor!.uuidString)"
+            var lastRegistrationTime = 0
+
             while(!self.isInterrupted) {
-                isleep(millisecond: loopInterval)
-                
                 let current = Date().millisecondsSince1970
                 
                 if lastRegistrationTime + pingInterval < current {
@@ -99,52 +97,55 @@ open class RendezvousClient {
                     }
                 }
 
-                let timeout = 60 * 1000
-                for kcpPeerItem in self.kcpPeerMap {
-                    let kcpPeer = kcpPeerItem.value
-                    if kcpPeer.lastPing + timeout < current {
-                        self.kcpPeerMap.removeValue(forKey: kcpPeerItem.key)
-                    }
-                    else if kcpPeer.lastPing + pingInterval < current {
-                        if !kcpPeer.send(connectionID: 0, packetType: RendezvousPacketType.PING_REQUEST, data: nil) {
-                            NSLog("send failed")
+                isleep(millisecond: loopInterval)
+                
+                kcpPeerSyncDQ.sync {
+                    for (key, kcpPeer) in self.kcpPeerMap.reversed() {
+                        if kcpPeer.lastPing + timeout < current {
+                            self.kcpPeerMap.removeValue(forKey: key)
+                        }
+                        else if kcpPeer.lastPing + pingInterval < current {
+                            DispatchQueue.main.async {
+                                if !kcpPeer.send(connectionID: 0, packetType: RendezvousPacketType.PING_REQUEST, data: nil) {
+                                    NSLog("send failed")
+                                }
+                            }
                         }
                     }
                 }
 
-                for rendezvousSessionPair in self.rendezvousSessionMap {
-                    let rendezvousSession = rendezvousSessionPair.value
-                    
-                    if let relayKcpPeer = rendezvousSession.relayKCPPeer {
-                        if relayKcpPeer.lastPing + timeout < current {
-                            NSLog("relay peer removed, \(relayKcpPeer.lastPing)")
-                            rendezvousSession.relayKCPPeer = nil
-                            self.delegate.onConnectionRemoved?(rendezvousSession, Connection.RELAY)
+                rendezvousSessionSyncDQ.sync {
+                    for (key, rendezvousSession) in self.rendezvousSessionMap {
+                        if let relayKcpPeer = rendezvousSession.relayKCPPeer {
+                            if relayKcpPeer.lastPing + timeout < current {
+                                NSLog("relay peer removed, \(relayKcpPeer.lastPing)")
+                                rendezvousSession.relayKCPPeer = nil
+                                self.delegate.onConnectionRemoved?(rendezvousSession, Connection.RELAY)
+                            }
                         }
-                    }
-                    if let publicKcpPeer = rendezvousSession.publicKCPPeer {
-                        if publicKcpPeer.lastPing + timeout < current {
-                            NSLog("public peer removed, \(publicKcpPeer.lastPing)")
-                            rendezvousSession.publicKCPPeer = nil
-                            self.delegate.onConnectionRemoved?(rendezvousSession, Connection.PUBLIC)
+                        if let publicKcpPeer = rendezvousSession.publicKCPPeer {
+                            if publicKcpPeer.lastPing + timeout < current {
+                                NSLog("public peer removed, \(publicKcpPeer.lastPing)")
+                                rendezvousSession.publicKCPPeer = nil
+                                self.delegate.onConnectionRemoved?(rendezvousSession, Connection.PUBLIC)
+                            }
                         }
-                    }
-                    if let privateKcpPeer = rendezvousSession.privateKCPPeer {
-                        if privateKcpPeer.lastPing + timeout < current {
-                            NSLog("private peer removed, \(privateKcpPeer.lastPing)")
-                            rendezvousSession.privateKCPPeer = nil
-                            self.delegate.onConnectionRemoved?(rendezvousSession, Connection.PRIVATE)
+                        if let privateKcpPeer = rendezvousSession.privateKCPPeer {
+                            if privateKcpPeer.lastPing + timeout < current {
+                                NSLog("private peer removed, \(privateKcpPeer.lastPing)")
+                                rendezvousSession.privateKCPPeer = nil
+                                self.delegate.onConnectionRemoved?(rendezvousSession, Connection.PRIVATE)
+                            }
                         }
-                    }
-                    
-                    if !rendezvousSession.isConnected() {
-                        let connectionID = rendezvousSession.connectionID
-                        self.rendezvousSessionMap.removeValue(forKey: rendezvousSessionPair.key)
-                        self.delegate.onDisconnected?(connectionID)
-                        NSLog("Disconnected, connectionID=\(connectionID)")
+                        
+                        if !rendezvousSession.isConnected() {
+                            let connectionID = rendezvousSession.connectionID
+                            self.rendezvousSessionMap.removeValue(forKey: key)
+                            self.delegate.onDisconnected?(connectionID)
+                            NSLog("Disconnected, connectionID=\(connectionID)")
+                        }
                     }
                 }
-                
             }
             print("registerDQ finished")
         }
@@ -152,16 +153,18 @@ open class RendezvousClient {
         let rawRecvDQ = DispatchQueue.init(label: "rawRecvDQ")
         rawRecvDQ.async {
             while(!self.isInterrupted) {
-                let (byteArrayOptional, ip, port) = self.udpClient.recv(3000)
+                let (byteArrayOptional, ip, port) = self.udpClient.recv(MAX_PACKET_SIZE)
                 guard let byteArray = byteArrayOptional else {
                     print("recv timeout")
                     continue
                 }
 
-                let kcpPeer = self.getKcpPeer(ip: ip, port: port)
-                kcpPeer.lock.lock()
-                let _ = kcpPeer.kcp.input(data: Data(byteArray))
-                kcpPeer.lock.unlock()
+                kcpPeerSyncDQ.sync {
+                    let kcpPeer = self.getKcpPeer(ip: ip, port: port)
+                    kcpPeer.lock.lock()
+                    let _ = kcpPeer.kcp.input(data: Data(byteArray))
+                    kcpPeer.lock.unlock()
+                }
             }
             print("rawRecvDQ finished")
         }
@@ -172,15 +175,17 @@ open class RendezvousClient {
             while(!self.isInterrupted) {
                 let current = Date().millisecondsSince1970
 
-                for kcpPeer in self.kcpPeerMap.values {
-                    kcpPeer.lock.lock()
-                    let data = kcpPeer.kcp.recv(dataSize: MAX_PACKET_SIZE)
-
-                    kcpPeer.kcp.update(current: UInt32(current & 0x7FFFFFFF))
-                    kcpPeer.lock.unlock()
-                    if let data = data {
-                        let byteArray: [UInt8] = Array(data)
-                        self.callback(kcpPeer, buffer: byteArray, size: byteArray.count)
+                kcpPeerSyncDQ.sync {
+                    for kcpPeer in self.kcpPeerMap.values {
+                        kcpPeer.lock.lock()
+                        let data = kcpPeer.kcp.recv(dataSize: MAX_PACKET_SIZE)
+                        kcpPeer.kcp.update(current: UInt32(current & 0x7FFFFFFF))
+                        kcpPeer.lock.unlock()
+                        
+                        if let data = data {
+                            let byteArray: [UInt8] = Array(data)
+                            self.callback(kcpPeer, buffer: byteArray, size: byteArray.count)
+                        }
                     }
                 }
 
@@ -201,8 +206,14 @@ open class RendezvousClient {
         isInterrupted = true
         udpClient.close()
         udpClient = UDPClient()
-        kcpPeerMap.removeAll()
-        rendezvousSessionMap.removeAll()
+        
+        kcpPeerSyncDQ.sync {
+            self.kcpPeerMap.removeAll()
+        }
+        
+        rendezvousSessionSyncDQ.sync {
+            self.rendezvousSessionMap.removeAll()
+        }
         return true
     }
     
@@ -276,9 +287,8 @@ open class RendezvousClient {
             }
             return
         case .RAWBYTE:
-            let rendezvousPacketType = RendezvousPacketType.init(rawValue: messageHeader.packetType)
-            guard rendezvousPacketType == nil || rendezvousPacketType == RendezvousPacketType.NONE else {
-                break
+            guard messageHeader.packetType < RendezvousPacketType.REGISTRATION_RENDEZVOUS_CLIENT_REQUEST.rawValue else {
+                    break
             }
             
             do {
@@ -597,10 +607,16 @@ open class RendezvousClient {
     }
 
     func getRendezvousSessionSafety(messageHeader: MessageHeader) -> RendezvousSession {
-        guard let rendezvousSession = rendezvousSessionMap[messageHeader.connectionID] else {
+        var _rendezvousSession: RendezvousSession?
+        rendezvousSessionSyncDQ.sync {
+            _rendezvousSession = rendezvousSessionMap[messageHeader.connectionID]
+        }
+        guard let rendezvousSession = _rendezvousSession else {
             let rendezvousSession = RendezvousSession(connectionID: messageHeader.connectionID)
             if messageHeader.connectionID != 0 {
-                rendezvousSessionMap[messageHeader.connectionID] = rendezvousSession
+                rendezvousSessionSyncDQ.sync {
+                    rendezvousSessionMap[messageHeader.connectionID] = rendezvousSession
+                }
             }
             return rendezvousSession
         }
@@ -609,24 +625,27 @@ open class RendezvousClient {
     }
     
     public func connect(ip: String, port: String) {
-        let rendezvousKcpPeer = getKcpPeer(ip: rendezvousServerIP, port: rendezvousServerPort)
-        if !rendezvousKcpPeer.send(connectionID: 0, packetType: .CONNECTION_REQUEST, data: "\(ip) \(port)") {
-            NSLog("send failed")
+        kcpPeerSyncDQ.sync {
+            let rendezvousKcpPeer = getKcpPeer(ip: rendezvousServerIP, port: rendezvousServerPort)
+            if !rendezvousKcpPeer.send(connectionID: 0, packetType: .CONNECTION_REQUEST, data: "\(ip) \(port)") {
+                NSLog("send failed")
+            }
         }
     }
     
     public func send(message: Message) {
-        let rendezvousKcpPeer = getKcpPeer(ip: rendezvousServerIP, port: rendezvousServerPort)
-        
-        do {
-            if try !rendezvousKcpPeer.send(connectionID: 0, request: message) {
-                NSLog("send failed")
-            }
+        kcpPeerSyncDQ.sync {
+            let rendezvousKcpPeer = getKcpPeer(ip: rendezvousServerIP, port: rendezvousServerPort)
 
+            do {
+                if try !rendezvousKcpPeer.send(connectionID: 0, request: message) {
+                    NSLog("send failed")
+                }
+            }
+            catch {
+                print("error : \(error)")
+            }
         }
-        catch {
-            print("error : \(error)")
-        }        
     }
 }
 
