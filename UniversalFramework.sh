@@ -36,6 +36,7 @@ fi
 cp -R "${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
 cp -R "${BUILD_DIR}/${CONFIGURATION}-iphoneos/SwiftProtobuf.framework" "${UNIVERSAL_OUTPUTFOLDER}/SwiftProtobuf"
 cp -R "${BUILD_DIR}/${CONFIGURATION}-iphoneos/SwiftSocket.framework" "${UNIVERSAL_OUTPUTFOLDER}/SwiftSocket"
+cp -R "${BUILD_DIR}/${CONFIGURATION}-iphoneos/SwiftKcp.framework" "${UNIVERSAL_OUTPUTFOLDER}/SwiftKcp"
 
 
 # Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory
@@ -51,6 +52,10 @@ SIMULATOR_SWIFT_SOCKET_MODULES_DIR="${BUILD_DIR}/${CONFIGURATION}-iphonesimulato
 if [ -d "${SIMULATOR_SWIFT_SOCKET_MODULES_DIR}" ]; then
 cp -R "${SIMULATOR_SWIFT_SOCKET_MODULES_DIR}" "${UNIVERSAL_OUTPUTFOLDER}/SwiftSocket/SwiftSocket.framework/Modules/SwiftSocket.swiftmodule"
 fi
+SIMULATOR_SWIFT_SOCKET_MODULES_DIR="${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/SwiftKcp.framework/Modules/SwiftKcp.swiftmodule/."
+if [ -d "${SIMULATOR_SWIFT_SOCKET_MODULES_DIR}" ]; then
+cp -R "${SIMULATOR_SWIFT_SOCKET_MODULES_DIR}" "${UNIVERSAL_OUTPUTFOLDER}/SwiftKcp/SwiftKcp.framework/Modules/SwiftKcp.swiftmodule"
+fi
 
 ## Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory
 lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}" \
@@ -62,4 +67,7 @@ lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/SwiftProtobuf/SwiftProtobuf.fram
 lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/SwiftSocket/SwiftSocket.framework/SwiftSocket" \
                     "${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/SwiftSocket.framework/SwiftSocket" \
                     "${BUILD_DIR}/${CONFIGURATION}-iphoneos/SwiftSocket.framework/SwiftSocket"
+lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/SwiftKcp/SwiftKcp.framework/SwiftKcp" \
+                    "${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/SwiftKcp.framework/SwiftKcp" \
+                    "${BUILD_DIR}/${CONFIGURATION}-iphoneos/SwiftKcp.framework/SwiftKcp"
 fi
