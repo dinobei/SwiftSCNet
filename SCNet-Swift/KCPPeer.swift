@@ -9,6 +9,7 @@
 import Foundation
 import SwiftSocket
 import SwiftProtobuf
+import SwiftKcp
 
 class KCPPeer {
     let ip: String

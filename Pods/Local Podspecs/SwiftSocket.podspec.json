@@ -1,9 +1,9 @@
 {
   "name": "SwiftSocket",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "summary": "A cool framework to work with TCP and UDP sockets",
   "description": "SwiftSocket profieds an easy way to create TCP or UDP clients and servers 💁",
-  "homepage": "https://github.com/dinobei/SwiftSocket",
+  "homepage": "https://github.com/swiftsocket/SwiftSocket",
   "license": {
     "type": "BSD"
   },
@@ -18,7 +18,7 @@
   },
   "source": {
     "git": "https://github.com/dinobei/SwiftSocket.git",
-    "tag": "2.0.3"
+    "tag": "2.0.4"
   },
   "source_files": "Sources/**/*.{swift,c}",
   "pod_target_xcconfig": {

@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		0BCD7A6021378EAA001BDB62 /* iOS Universal SCNet_Swift */ = {
+		0BCD7A6021378EAA001BDB62 /* Universal SCNet_Swift */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 0BCD7A6121378EAA001BDB62 /* Build configuration list for PBXAggregateTarget "iOS Universal SCNet_Swift" */;
+			buildConfigurationList = 0BCD7A6121378EAA001BDB62 /* Build configuration list for PBXAggregateTarget "Universal SCNet_Swift" */;
 			buildPhases = (
 				0BCD7A6421378EB2001BDB62 /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = "iOS Universal SCNet_Swift";
+			name = "Universal SCNet_Swift";
 			productName = "iOS Universal SCNet_Swift";
 		};
 /* End PBXAggregateTarget section */
@@ -69,6 +69,8 @@
 		0B5B2DDB2126D72300C710FC /* ServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerDelegate.swift; sourceTree = "<group>"; };
 		0B620CEB223B443000976C89 /* UIDevice+ipAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+ipAddress.swift"; sourceTree = "<group>"; };
 		0BCD7A4521370093001BDB62 /* UniversalFramework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = UniversalFramework.sh; sourceTree = "<group>"; };
+		7D201A0ADC991E2B4580DA46 /* Pods-SCNet_Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCNet_Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SCNet_Swift/Pods-SCNet_Swift.release.xcconfig"; sourceTree = "<group>"; };
+		A065B83414420D26903E21A1 /* Pods-SCNet_Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCNet_Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SCNet_Swift/Pods-SCNet_Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		C355F2B869C5DC0EE3451186 /* Pods_SCNet_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SCNet_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -135,6 +137,8 @@
 			children = (
 				04F4B1323BD5C297C61F51B1 /* Pods-SCNet-Swift.debug.xcconfig */,
 				08D9026D50695CB851972C3A /* Pods-SCNet-Swift.release.xcconfig */,
+				A065B83414420D26903E21A1 /* Pods-SCNet_Swift.debug.xcconfig */,
+				7D201A0ADC991E2B4580DA46 /* Pods-SCNet_Swift.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -161,9 +165,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0B53AEA621211C7400B58D61 /* iOS SCNet_Swift */ = {
+		0B53AEA621211C7400B58D61 /* SCNet_Swift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0B53AEAF21211C7400B58D61 /* Build configuration list for PBXNativeTarget "iOS SCNet_Swift" */;
+			buildConfigurationList = 0B53AEAF21211C7400B58D61 /* Build configuration list for PBXNativeTarget "SCNet_Swift" */;
 			buildPhases = (
 				5C3AFFC269111D6C3B079B6A /* [CP] Check Pods Manifest.lock */,
 				0B53AEA221211C7400B58D61 /* Sources */,
@@ -175,7 +179,7 @@
 			);
 			dependencies = (
 			);
-			name = "iOS SCNet_Swift";
+			name = SCNet_Swift;
 			productName = "SCNet-Swift";
 			productReference = 0B53AEA721211C7400B58D61 /* SCNet_Swift.framework */;
 			productType = "com.apple.product-type.framework";
@@ -210,8 +214,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0B53AEA621211C7400B58D61 /* iOS SCNet_Swift */,
-				0BCD7A6021378EAA001BDB62 /* iOS Universal SCNet_Swift */,
+				0B53AEA621211C7400B58D61 /* SCNet_Swift */,
+				0BCD7A6021378EAA001BDB62 /* Universal SCNet_Swift */,
 			);
 		};
 /* End PBXProject section */
@@ -252,7 +256,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SCNet-Swift-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SCNet_Swift-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -414,7 +418,7 @@
 		};
 		0B53AEB021211C7400B58D61 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04F4B1323BD5C297C61F51B1 /* Pods-SCNet-Swift.debug.xcconfig */;
+			baseConfigurationReference = A065B83414420D26903E21A1 /* Pods-SCNet_Swift.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -448,7 +452,7 @@
 		};
 		0B53AEB121211C7400B58D61 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08D9026D50695CB851972C3A /* Pods-SCNet-Swift.release.xcconfig */;
+			baseConfigurationReference = 7D201A0ADC991E2B4580DA46 /* Pods-SCNet_Swift.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -509,7 +513,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0B53AEAF21211C7400B58D61 /* Build configuration list for PBXNativeTarget "iOS SCNet_Swift" */ = {
+		0B53AEAF21211C7400B58D61 /* Build configuration list for PBXNativeTarget "SCNet_Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B53AEB021211C7400B58D61 /* Debug */,
@@ -518,7 +522,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0BCD7A6121378EAA001BDB62 /* Build configuration list for PBXAggregateTarget "iOS Universal SCNet_Swift" */ = {
+		0BCD7A6121378EAA001BDB62 /* Build configuration list for PBXAggregateTarget "Universal SCNet_Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0BCD7A6221378EAA001BDB62 /* Debug */,

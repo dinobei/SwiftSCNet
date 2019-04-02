@@ -949,7 +949,7 @@ class IKCPCB {
                 }
                 
                 if segment.xmit >= self.dead_link {
-                    self.state = UInt32(-1)
+                    self.state = UInt32(0xFFFFFFFF) 
                 }
             }
         }
