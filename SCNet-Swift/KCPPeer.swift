@@ -11,13 +11,13 @@ import SwiftSocket
 import SwiftProtobuf
 import SwiftKcp
 
-class KCPPeer {
+class KCPPeer: KcpOutputer {
     let ip: String
     let port: Int
     let key: String
     
     let lock: NSLock = NSLock()
-    var kcp: IKCPCB
+    var kcp: Kcp
     var lastPing: Int
     
     let date = Date()
@@ -31,19 +31,13 @@ class KCPPeer {
         self.ip = ip
         self.port = port
         self.key = "\(ip):\(port)"
-
-        self.kcp = IKCPCB.init(conv: 0x11223344, user: 0)
-        let _ = self.kcp.wndSize(sndwnd: 128, rcvwnd: 128)
-        let _ = self.kcp.nodelay(nodelay: 1, internalVal: 20, resend: 2, nc: 1)
         
         lastPing = 0
-        
-        self.kcp.output = {
-            (buf: [UInt8],kcp: inout IKCPCB,user: UInt64) -> Int in
-            let _ = self.udpClient.send(ip: self.ip, port: self.port, data: buf)
-            
-            return 0
-        }
+
+        self.kcp = Kcp(conv: 0x11223344)
+        let _ = self.kcp.wndSize(sndwnd: 128, rcvwnd: 128)
+        let _ = self.kcp.noDelay(nodelay: 1, interval: 20, resend: 2, nc: 1)
+        self.kcp.outputer(self)
     }
 
     func send(connectionID: Int, packetType: RendezvousPacketType, data: String?) -> Bool {
@@ -72,7 +66,7 @@ class KCPPeer {
         data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
         
         lock.lock()
-        let result = kcp.send(buffer: Data(data))
+        let result = kcp.send(data: Data(data))
         lock.unlock()
         if result < 0 {
             return false
@@ -99,7 +93,7 @@ class KCPPeer {
         request_data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
         
         lock.lock()
-        let result = kcp.send(buffer: Data(request_data))
+        let result = kcp.send(data: Data(request_data))
         lock.unlock()
         if result < 0 {
             return false
@@ -109,6 +103,12 @@ class KCPPeer {
     
     func getKey() -> String {
         return key
+    }
+    
+    func kcp(kcp: Kcp, outputData: Data) -> Int {
+        let array = [UInt8](outputData)
+        let _ = self.udpClient.send(ip: self.ip, port: self.port, data: array)
+        return 0
     }
 }
 

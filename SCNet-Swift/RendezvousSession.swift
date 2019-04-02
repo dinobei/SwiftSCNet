@@ -119,7 +119,7 @@ open class RendezvousSession: NSObject {
         request_data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
         
         kcpPeer.lock.lock()
-        let result = kcpPeer.kcp.send(buffer: Data(request_data))
+        let result = kcpPeer.kcp.send(data: Data(request_data))
         kcpPeer.lock.unlock()
         if result < 0 {
             return false

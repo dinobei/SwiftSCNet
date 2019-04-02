@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0B003DD8223A1448004087AE /* kcp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DD7223A1448004087AE /* kcp.swift */; };
 		0B003DDA223A245E004087AE /* RendezvousClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DD9223A245E004087AE /* RendezvousClient.swift */; };
 		0B003DDC223A25B1004087AE /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DDB223A25B1004087AE /* NetworkUtils.swift */; };
 		0B003DE2223A26CC004087AE /* KCPPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003DE1223A26CC004087AE /* KCPPeer.swift */; };
@@ -47,7 +46,6 @@
 /* Begin PBXFileReference section */
 		04F4B1323BD5C297C61F51B1 /* Pods-SCNet-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCNet-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SCNet-Swift/Pods-SCNet-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		08D9026D50695CB851972C3A /* Pods-SCNet-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCNet-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SCNet-Swift/Pods-SCNet-Swift.release.xcconfig"; sourceTree = "<group>"; };
-		0B003DD7223A1448004087AE /* kcp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = kcp.swift; sourceTree = "<group>"; };
 		0B003DD9223A245E004087AE /* RendezvousClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendezvousClient.swift; sourceTree = "<group>"; };
 		0B003DDB223A25B1004087AE /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		0B003DE1223A26CC004087AE /* KCPPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KCPPeer.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 		0B53AEA921211C7400B58D61 /* SCNet-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				0B003DD7223A1448004087AE /* kcp.swift */,
 				0B53AEAA21211C7400B58D61 /* SCNet_Swift.h */,
 				0B53AEAB21211C7400B58D61 /* Info.plist */,
 				0B53AEB221211F5000B58D61 /* ServerSession.swift */,
@@ -276,7 +273,6 @@
 				0B003DE2223A26CC004087AE /* KCPPeer.swift in Sources */,
 				0B53AF6421214BDD00B58D61 /* BlockingQueue.swift in Sources */,
 				0B5B2DDC2126D72300C710FC /* ServerManagerDelegate.swift in Sources */,
-				0B003DD8223A1448004087AE /* kcp.swift in Sources */,
 				0B003DE4223A283F004087AE /* Date+milliseconds.swift in Sources */,
 				0B003DEA223ACD87004087AE /* RendezvousClientDelegate.swift in Sources */,
 				0B53AF38212133F300B58D61 /* Varint.swift in Sources */,

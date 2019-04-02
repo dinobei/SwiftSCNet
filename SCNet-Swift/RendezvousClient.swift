@@ -153,7 +153,7 @@ open class RendezvousClient {
         let rawRecvDQ = DispatchQueue.init(label: "rawRecvDQ")
         rawRecvDQ.async {
             while(!self.isInterrupted) {
-                let (byteArrayOptional, ip, port) = self.udpClient.recv(MAX_PACKET_SIZE)
+                let (byteArrayOptional, ip, port) = self.udpClient.recv(1500)
                 guard let byteArray = byteArrayOptional else {
                     print("recv timeout")
                     continue
@@ -178,8 +178,8 @@ open class RendezvousClient {
                 kcpPeerSyncDQ.sync {
                     for kcpPeer in self.kcpPeerMap.values {
                         kcpPeer.lock.lock()
-                        let data = kcpPeer.kcp.recv(dataSize: MAX_PACKET_SIZE)
-                        kcpPeer.kcp.update(current: UInt32(current & 0x7FFFFFFF))
+                        let data = kcpPeer.kcp.recv(bufferLen: MAX_PACKET_SIZE)
+                        kcpPeer.kcp.update(millisec: UInt32(current & 0x7FFFFFFF))
                         kcpPeer.lock.unlock()
                         
                         if let data = data {
