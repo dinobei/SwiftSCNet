@@ -178,7 +178,7 @@ open class RendezvousClient {
                 kcpPeerSyncDQ.sync {
                     for kcpPeer in self.kcpPeerMap.values {
                         kcpPeer.lock.lock()
-                        let data = kcpPeer.kcp.recv(bufferLen: MAX_PACKET_SIZE)
+                        let data = kcpPeer.kcp.recv()
                         kcpPeer.kcp.update(millisec: UInt32(current & 0x7FFFFFFF))
                         kcpPeer.lock.unlock()
                         

@@ -34,7 +34,7 @@ class KCPPeer: KcpOutputer {
         
         lastPing = 0
 
-        self.kcp = Kcp(conv: 0x11223344)
+        self.kcp = Kcp(conv: 0x11223344, recvBufferSize: Int32(MAX_PACKET_SIZE))
         let _ = self.kcp.wndSize(sndwnd: 128, rcvwnd: 128)
         let _ = self.kcp.noDelay(nodelay: 1, interval: 20, resend: 2, nc: 1)
         self.kcp.outputer(self)
