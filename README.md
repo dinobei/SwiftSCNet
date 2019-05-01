@@ -27,14 +27,15 @@
 ## 설치
 
 ```ruby
+source 'https://github.com/Cocoapods/Specs.git'
+source 'https://github.com/dinobei/Specs.git'
+
+...
+
 pod 'SwiftSCNet', '~>0.1.0'
 ```
 
 ## 사용방법
-- Xcode 프로젝트에 프레임워크 추가
-    - SCNet-Swift 프로젝트 빌드하여 `SCNet-Swift.framework`, `SwiftProtobuf.framework`, `SwiftSocket.framework`를 생성
-    - 개발할 iOS/macOS Xcode 프로젝트 설정페이지에서 **Target**-**General** **Embedded Binary**에 framework를 추가 (**링크(O)**, 프로젝트내 복사(X))
-
 - 패킷 송수신을 위한 메시지 등록
 
 ```swift
@@ -146,11 +147,6 @@ rendezvousClient.send(message: request)
 let request = Simple_packet_1()
 rendezvousSession.send(request: request) // rendezvousSession은 5번 과정을 통해 onConnected() 콜백의 파라미터로 얻을 수 있음
 ```
-
-## 라이브러리 종속성
-- CocoaPod
-    - SwiftProtobuf
-    - SwiftSocket (https://github.com/dinobei/SwiftProtobuf)
 
 ## License
 
