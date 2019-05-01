@@ -1,0 +1,37 @@
+{
+  "name": "SwiftSCNet",
+  "version": "0.4.0",
+  "summary": "Cross platform networking library.",
+  "description": "Cross platform(iOS, Android, C) networking library.",
+  "homepage": "https://github.com/dinobei/SwiftSCNet",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "dinobei": "dinobei89@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/dinobei/SwiftSCNet.git",
+    "tag": "0.4.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "SwiftSCNet/**/*",
+  "swift_version": "4",
+  "dependencies": {
+    "SwiftProtobuf": [
+      "~> 1.1.0"
+    ],
+    "SwiftKcp": [
+      "~> 0.1.0"
+    ],
+    "SwiftSocket": [
+      "~> 2.0.4"
+    ]
+  },
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "4.0"
+  }
+}

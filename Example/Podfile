@@ -1,0 +1,13 @@
+platform :ios, '8.0'
+source 'https://github.com/Cocoapods/Specs.git'
+source 'https://github.com/dinobei/Specs.git'
+
+use_frameworks!
+
+target 'SwiftSCNet_Example' do
+  pod 'SwiftSCNet', :path => '../'
+
+  target 'SwiftSCNet_Tests' do
+    inherit! :search_paths
+  end
+end

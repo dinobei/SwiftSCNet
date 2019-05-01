@@ -1,0 +1,6 @@
+framework module Pods_SwiftSCNet_Example {
+  umbrella header "Pods-SwiftSCNet_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

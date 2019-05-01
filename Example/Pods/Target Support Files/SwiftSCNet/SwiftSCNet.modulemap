@@ -1,0 +1,6 @@
+framework module SwiftSCNet {
+  umbrella header "SwiftSCNet-umbrella.h"
+
+  export *
+  module * { export * }
+}

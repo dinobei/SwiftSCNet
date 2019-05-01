@@ -1,4 +1,10 @@
 # SCNet-Swift
+
+[![CI Status](https://img.shields.io/travis/dinobei/SwiftSCNet.svg?style=flat)](https://travis-ci.org/dinobei/SwiftSCNet)
+[![Version](https://img.shields.io/cocoapods/v/SwiftSCNet.svg?style=flat)](https://cocoapods.org/pods/SwiftSCNet)
+[![License](https://img.shields.io/cocoapods/l/SwiftSCNet.svg?style=flat)](https://cocoapods.org/pods/SwiftSCNet)
+[![Platform](https://img.shields.io/cocoapods/p/SwiftSCNet.svg?style=flat)](https://cocoapods.org/pods/SwiftSCNet)
+
 - iOS, macOS용 네트워크 송수신 프레임워크 라이브러리
 - Swift 4.2 지원
 
@@ -17,6 +23,12 @@
 - RendezvousClient
     - Reliable-UDP 기반 피어(서버 or 클라이언트)와 통신
     - 네트워크 상태에 따라 Relay, Hole-Punching, Direct connection, Reverse connection 자동 연결
+
+## 설치
+
+```ruby
+pod 'SwiftSCNet', '~>0.1.0'
+```
 
 ## 사용방법
 - Xcode 프로젝트에 프레임워크 추가
@@ -139,3 +151,7 @@ rendezvousSession.send(request: request) // rendezvousSession은 5번 과정을 
 - CocoaPod
     - SwiftProtobuf
     - SwiftSocket (https://github.com/dinobei/SwiftProtobuf)
+
+## License
+
+SwiftSCNet is available under the MIT license. See the LICENSE file for more info.
