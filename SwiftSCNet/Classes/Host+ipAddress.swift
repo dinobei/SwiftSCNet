@@ -1,16 +1,15 @@
 //
-//  UIDevice+ipAddress.swift
-//  iOS SCNet_Swift
+//  Host+ipAddress.swift
+//  Pods-tmptmp
 //
-//  Created by pbj on 15/03/2019.
-//  Copyright © 2019 ijoon. All rights reserved.
+//  Created by pbj on 07/06/2019.
 //
 
-#if os(iOS) || os(watchOS) || os(tvOS)
-import UIKit
+#if os(OSX)
+import Cocoa
 
 // reference: https://stackoverflow.com/a/53528838
-extension UIDevice {
+extension Host {
     
     private struct InterfaceNames {
         static let wifi = ["en0"]

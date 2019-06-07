@@ -6,7 +6,6 @@
 //  Copyright © 2018년 ijoon. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #include <ifaddrs.h>
 
 //! Project version number for SCNet_Swift.

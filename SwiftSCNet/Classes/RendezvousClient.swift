@@ -74,17 +74,24 @@ open class RendezvousClient {
         let pingInterval: Int = 30 * 1000
         let timeout: Int = 60 * 1000
         registerDQ.async {
+            #if os(iOS) || os(watchOS) || os(tvOS)
+            let optionalAddr = UIDevice.current.ipAddress()
+            #elseif os(OSX)
+            let optionalAddr = Host.current().ipAddress()
+            #else
+            assert(false, "Unknown device")
+            #endif
+            
             var address = "0.0.0.0"
             if let _address = getWiFiAddress() {
                 address = _address
             }
-            else if let _address = UIDevice.current.ipAddress() {
+            else if let _address = optionalAddr {
                 address = _address
             }
             
             print("local Address: \(address):\(rendezvousKcpPeer.udpClient.getLocalPort())")
-            
-            let data = "\(address) \(rendezvousKcpPeer.udpClient.getLocalPort()) \(UIDevice.current.identifierForVendor!.uuidString)"
+            let data = "\(address) \(rendezvousKcpPeer.udpClient.getLocalPort()) \(getSystemUUID())"
             var lastRegistrationTime = 0
 
             while(!self.isInterrupted) {
@@ -653,3 +660,20 @@ func isleep(millisecond:Int) -> Void {
     usleep(useconds_t((millisecond << 10) - (millisecond << 4) - (millisecond << 3)))
 }
 
+#if os(OSX)
+func getSystemUUID() -> String {
+    let dev = IOServiceMatching("IOPlatformExpertDevice")
+    let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMasterPortDefault, dev)
+    let serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert, kIOPlatformUUIDKey as CFString, kCFAllocatorDefault, 0)
+    IOObjectRelease(platformExpert)
+    let ser = serialNumberAsCFString?.takeUnretainedValue() ?? nil
+    if let result = ser as? String {
+        return result
+    }
+    return "unknown_macos_uuid"
+}
+#elseif os(iOS) || os(watchOS) || os(tvOS)
+func getSystemUUID() -> String {
+    return UIDevice.current.identifierForVendor!.uuidString
+}
+#endif
