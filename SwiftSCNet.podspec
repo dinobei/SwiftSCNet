@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwiftSCNet'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Cross platform networking library.'
 
   s.description      = <<-DESC
@@ -13,6 +13,7 @@ Cross platform(iOS, Android, C) networking library.
   s.source           = { :git => 'https://github.com/dinobei/SwiftSCNet.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = "10.10"
 
   s.source_files = 'SwiftSCNet/**/*'
   s.swift_version = '4'
