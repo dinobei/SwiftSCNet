@@ -1,7 +1,7 @@
 PODS:
   - SwiftKcp (0.1.1)
   - SwiftProtobuf (1.1.2)
-  - SwiftSCNet (0.4.0):
+  - SwiftSCNet (0.1.0):
     - SwiftKcp (~> 0.1.0)
     - SwiftProtobuf (~> 1.1.0)
     - SwiftSocket (~> 2.0.4)
@@ -24,7 +24,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   SwiftKcp: d482fdb9baf31f79cfc113d3d7b2c5fabb9ccddc
   SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
-  SwiftSCNet: 9a3df6874b3e81343164ce39ab9da2140c662a7d
+  SwiftSCNet: 07eafbe6895f3d65bffcdf004bf284206c85af06
   SwiftSocket: dc6588f6acb9e510aa18b9606236403da4cf064e
 
 PODFILE CHECKSUM: 4431c75dd022544728c2f2c1aefdd91e0fdac5a4
