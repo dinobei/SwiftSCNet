@@ -598,10 +598,6 @@ open class RendezvousClient {
             delegate.onConnected?(rendezvousSession, .RELAY)
         case .CONNECTION_RELAY_SERVICE_FAILED:
             NSLog("received CONNECTION_RELAY_SERVICE_FAILED")
-        case .REGISTRATION_RELAY_PEER_SUCCESS:
-            NSLog("received REGISTRATION_RELAY_PEER_SUCCESS")
-        case .REGISTRATION_RELAY_PEER_FAILED:
-            NSLog("received REGISTRATION_RELAY_PEER_FAILED")
         case .PING_REQUEST:
             NSLog("received PING_REQUEST from \(kcpPeer.getKey())")
             kcpPeer.send(connectionID: 0, packetType: .PING_RESPONSE, data: nil)

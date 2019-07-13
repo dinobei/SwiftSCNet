@@ -212,10 +212,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = UG4NRS8QNR;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = UG4NRS8QNR;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -488,6 +490,7 @@
 			baseConfigurationReference = F5BD108006982680F8C44B91 /* Pods-SwiftSCNet_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = UG4NRS8QNR;
 				INFOPLIST_FILE = SwiftSCNet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -503,6 +506,7 @@
 			baseConfigurationReference = 62FB51478E3750824EC4E88A /* Pods-SwiftSCNet_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = UG4NRS8QNR;
 				INFOPLIST_FILE = SwiftSCNet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -517,6 +521,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BABE837BF9F6735AD9141F44 /* Pods-SwiftSCNet_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = UG4NRS8QNR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -539,6 +544,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE8314252F2CBB28CCCA38F3 /* Pods-SwiftSCNet_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = UG4NRS8QNR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

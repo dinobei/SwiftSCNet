@@ -29,10 +29,7 @@ public enum RendezvousPacketType: Int {
     case RELAY_SERVICE_READY; // nullptr
     case RELAY_SERVER_INFORMATION; // RelS-ip, RelS-port, 1(SP) or 0(TP)
     case REGISTRATION_RELAY_PEER_REQUEST; // 1(SP) or 0(TP)
-    case REGISTRATION_RELAY_PEER_SUCCESS; // nullptr
-    case REGISTRATION_RELAY_PEER_FAILED; // nullptr
     case RELAY_SESSION_CREATED; // nullptr
-    case RELAY_SESSION_CREATING_FAILED; // nullptr
     case RELAY_SESSION_INVALID; // nullptr
     
     case CONNECTION_RELAY_SERVICE_SUCCESS; // RelS-ip, RelS-port
