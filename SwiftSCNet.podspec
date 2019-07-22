@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwiftSCNet'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'Cross platform networking library.'
 
   s.description      = <<-DESC
