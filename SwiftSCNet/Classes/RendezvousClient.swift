@@ -71,8 +71,8 @@ open class RendezvousClient {
         
         let rendezvousKcpPeer = self.getKcpPeer(ip: self.rendezvousServerIP, port: self.rendezvousServerPort)
         let loopInterval: Int = 5 * 1000
-        let pingInterval: Int = 30 * 1000
-        let timeout: Int = 60 * 1000
+        let pingInterval: Int64 = 30 * 1000
+        let timeout: Int64 = 60 * 1000
         registerDQ.async {
             #if os(iOS) || os(watchOS) || os(tvOS)
             let optionalAddr = UIDevice.current.ipAddress()
@@ -92,7 +92,7 @@ open class RendezvousClient {
             
             print("local Address: \(address):\(rendezvousKcpPeer.udpClient.getLocalPort())")
             let data = "\(address) \(rendezvousKcpPeer.udpClient.getLocalPort()) \(getSystemUUID())"
-            var lastRegistrationTime = 0
+            var lastRegistrationTime: Int64 = 0
 
             while(!self.isInterrupted) {
                 let current = Date().millisecondsSince1970

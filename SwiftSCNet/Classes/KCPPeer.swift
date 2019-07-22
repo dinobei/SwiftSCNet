@@ -18,7 +18,7 @@ class KCPPeer: KcpOutputer {
     
     let lock: NSLock = NSLock()
     var kcp: Kcp
-    var lastPing: Int
+    var lastPing: Int64
     
     let date = Date()
     let udpClient: UDPClient
