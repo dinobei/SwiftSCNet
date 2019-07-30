@@ -20,7 +20,7 @@ Cross platform(iOS, Android, C) networking library.
 
   s.dependency 'SwiftProtobuf', '~> 1.1.0'
   s.dependency 'SwiftKcp', '~> 0.1.0'
-  s.dependency 'SwiftSocket', '~> 2.0.4'
+  s.dependency 'SwiftSocket', '~> 2.0.5'
   
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
 end

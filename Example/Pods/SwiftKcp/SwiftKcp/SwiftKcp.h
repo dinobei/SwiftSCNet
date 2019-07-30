@@ -6,8 +6,6 @@
 //  Copyright © 2017年 peng yun chou. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 //! Project version number for SwiftKcp.
 FOUNDATION_EXPORT double SwiftKcpVersionNumber;
 

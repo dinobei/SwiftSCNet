@@ -140,7 +140,7 @@ open class UDPClient: Socket {
     }
     
     //TODO add multycast and boardcast
-    open func recv(_ expectlen: Int) -> ([Byte]?, String, Int) {
+    open func recv(_ expectlen: Int) -> (ArraySlice<Byte>?, String, Int) {
         guard let fd = self.fd else {
             return (nil, "no ip", 0)
         }
@@ -155,7 +155,7 @@ open class UDPClient: Socket {
             return (nil, address, port)
         }
 
-        let data: [Byte] = Array(buff[0..<Int(readLen)])
+        let data: ArraySlice<Byte> = buff[0..<Int(readLen)]
         return (data, address, port)
     }
     
