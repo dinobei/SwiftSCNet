@@ -190,7 +190,7 @@ open class RendezvousClient {
                         kcpPeer.lock.unlock()
                         
                         if let data = data {
-                            let byteArray: [UInt8] = Array(data)
+                            let byteArray = [UInt8](data)
                             self.callback(kcpPeer, buffer: byteArray, size: byteArray.count)
                         }
                     }
@@ -233,6 +233,7 @@ open class RendezvousClient {
         var receivedHeaderComponent = 0
         
         var headerBuffer: [[UInt8]] = []
+        headerBuffer.reserveCapacity(HEADER_ELEMENTS)
         for _ in 0 ..< HEADER_ELEMENTS {
             headerBuffer.append([])
         }
@@ -271,9 +272,9 @@ open class RendezvousClient {
                                           cryptType: decodeVarint(headerBuffer[3]),
                                           connectionID: decodeVarint(headerBuffer[4]))
         
-        var data = [UInt8]()
+        var data = ArraySlice<UInt8>()
         if cursor < size {
-            data = Array(buffer[cursor...size-1])
+            data = buffer[cursor...size-1]
         }
         
         kcpPeer.lastPing = Date().millisecondsSince1970

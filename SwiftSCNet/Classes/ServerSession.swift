@@ -218,7 +218,7 @@ open class ServerSession: NSObject {
         return result.isSuccess
     }
     
-    private func recv() throws -> (MessageHeader, [UInt8])? {
+    private func recv() throws -> (MessageHeader, ArraySlice<UInt8>)? {
         guard let client = self.client else {
             return nil
         }
@@ -267,11 +267,12 @@ open class ServerSession: NSObject {
                                           cryptType: decodeVarint(headerBuffer[3]),
                                           connectionID: decodeVarint(headerBuffer[4]))
         if messageHeader.dataSize == 0 {
-            let emptyData: [Byte] = []
+            let emptyData = ArraySlice<UInt8>()
             return (messageHeader, emptyData)
         }
         
         var totalData: [Byte] = []
+        totalData.reserveCapacity(messageHeader.dataSize)
         var readCount = 0
         while true {
             guard let partialData = try client.read(messageHeader.dataSize - readCount, timeout: 5) else {
@@ -286,7 +287,7 @@ open class ServerSession: NSObject {
             
         }
         
-        return (messageHeader, totalData)
+        return (messageHeader, totalData[0...totalData.count])
     }
     
 }
