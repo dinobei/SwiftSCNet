@@ -225,8 +225,8 @@ open class RendezvousClient {
     }
     
     func callback(_ kcpPeer: KCPPeer, buffer: [UInt8], size: Int) {
-        guard buffer[0] == Array(MAGIC_PACKET.utf8)[0],
-            buffer[1] == Array(MAGIC_PACKET.utf8)[1] else {
+        guard buffer[0] == MAGIC_PACKET[0],
+            buffer[1] == MAGIC_PACKET[1] else {
                 return
         }
         

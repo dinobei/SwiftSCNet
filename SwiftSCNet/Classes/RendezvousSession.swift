@@ -115,8 +115,8 @@ open class RendezvousSession: NSObject {
         request_data.insert(contentsOf: messageTypeArr, at: 0)
         request_data.insert(contentsOf: packetTypeArr, at: 0)
         request_data.insert(contentsOf: packetSizeArr, at: 0)
-        request_data.insert(Array(MAGIC_PACKET.utf8)[1], at: 0)
-        request_data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
+        request_data.insert(MAGIC_PACKET[1], at: 0)
+        request_data.insert(MAGIC_PACKET[0], at: 0)
         
         kcpPeer.lock.lock()
         let result = kcpPeer.kcp.send(data: Data(request_data))

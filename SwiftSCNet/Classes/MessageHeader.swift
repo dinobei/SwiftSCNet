@@ -8,7 +8,8 @@
 
 import Foundation
 
-let MAGIC_PACKET = "IJ"
+let _MAGIC_PACKET = "IJ"
+let MAGIC_PACKET:[UInt8] = [UInt8](_MAGIC_PACKET.utf8)
 let MAGIC_PACKET_LENGTH = 2
 
 let HEADER_ELEMENTS = 5

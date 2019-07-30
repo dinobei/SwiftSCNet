@@ -188,8 +188,8 @@ open class ServerSession: NSObject {
         request_data.insert(contentsOf: messageTypeArr, at: 0)
         request_data.insert(contentsOf: packetTypeArr, at: 0)
         request_data.insert(contentsOf: packetSizeArr, at: 0)
-        request_data.insert(Array(MAGIC_PACKET.utf8)[1], at: 0)
-        request_data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
+        request_data.insert(MAGIC_PACKET[1], at: 0)
+        request_data.insert(MAGIC_PACKET[0], at: 0)
         
         let result = client.send(data: request_data)
         return result.isSuccess
@@ -211,8 +211,8 @@ open class ServerSession: NSObject {
         data.insert(contentsOf: messageTypeArr, at: 0)
         data.insert(contentsOf: packetTypeArr, at: 0)
         data.insert(contentsOf: packetSizeArr, at: 0)
-        data.insert(Array(MAGIC_PACKET.utf8)[1], at: 0)
-        data.insert(Array(MAGIC_PACKET.utf8)[0], at: 0)
+        data.insert(MAGIC_PACKET[1], at: 0)
+        data.insert(MAGIC_PACKET[0], at: 0)
 
         let result = client.send(data: data)
         return result.isSuccess
@@ -223,8 +223,8 @@ open class ServerSession: NSObject {
             return nil
         }
         guard let magicPacket = try client.read(MAGIC_PACKET_LENGTH, timeout: 1),
-            magicPacket[0] == Array(MAGIC_PACKET.utf8)[0],
-            magicPacket[1] == Array(MAGIC_PACKET.utf8)[1] else {
+            magicPacket[0] == MAGIC_PACKET[0],
+            magicPacket[1] == MAGIC_PACKET[1] else {
             return nil
         }
         
