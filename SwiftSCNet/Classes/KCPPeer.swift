@@ -32,7 +32,7 @@ class KCPPeer: KcpOutputer {
         self.port = port
         self.key = "\(ip):\(port)"
         
-        lastPing = 0
+        lastPing = Date().millisecondsSince1970
 
         self.kcp = Kcp(conv: 0x11223344, recvBufferSize: Int32(MAX_PACKET_SIZE))
         let _ = self.kcp.wndSize(sndwnd: 128, rcvwnd: 128)
