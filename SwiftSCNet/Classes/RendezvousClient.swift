@@ -289,7 +289,7 @@ open class RendezvousClient {
                 let messageType = try self.registry.getMessageType(packetType: Int32(messageHeader.packetType))
                 let message = try messageType.init(serializedData: Data(data))
                 let callback = try self.registry.getProtobufCallback(packetType: Int32(messageHeader.packetType))
-                callback?(message)
+                callback?(messageHeader.connectionID, message)
             }
             catch {
             }
@@ -300,7 +300,7 @@ open class RendezvousClient {
             }
             
             do {
-                try self.registry.getRawByteCallback(packetType: Int32(messageHeader.packetType))?(data)
+                try self.registry.getRawByteCallback(packetType: Int32(messageHeader.packetType))?(messageHeader.connectionID, data)
             }
             catch {
             }

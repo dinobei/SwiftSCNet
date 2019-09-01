@@ -10,8 +10,8 @@ import Foundation
 import SwiftProtobuf
 
 open class Registry {
-    public typealias ProtobufCallback = (Message)->Void
-    public typealias RawByteCallback = (ArraySlice<UInt8>)->Void
+    public typealias ProtobufCallback = (Int, Message)->Void
+    public typealias RawByteCallback = (Int, ArraySlice<UInt8>)->Void
     private var dict: Dictionary<String, Int32> // Protobuf Message name to packetType
     private var dictProtobufMessageType: Dictionary<Int32, Message.Type> // Packet type to protobuf message name
     private var dictProtobufCallback: Dictionary<Int32, ProtobufCallback?> // packetType to closure
