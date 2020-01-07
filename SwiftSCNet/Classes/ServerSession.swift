@@ -104,6 +104,7 @@ open class ServerSession: NSObject {
                     do {
                         guard let (messageHeader, data) = try self.recv() else {
                             // timeout RecvThread
+                            self.serverSessionDelegate?.onTimedOut?()
                             continue
                         }
 

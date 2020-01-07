@@ -38,6 +38,10 @@ extension ViewController: ServerSessionDelegate {
         print("onAttached")
     }
     
+    func onTimedOut() {
+        print("onTimedOut")
+    }
+    
     func onAttachFailed() {
         print("onAttachFailed")
     }

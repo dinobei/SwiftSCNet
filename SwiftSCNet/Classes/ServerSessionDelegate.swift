@@ -11,6 +11,7 @@ import Foundation
 @objc public protocol ServerSessionDelegate {
     @objc optional func onAttaching()
     @objc optional func onAttached()
+    @objc optional func onTimedOut()
     @objc optional func onAttachFailed()
     @objc optional func onDetached()
 }
