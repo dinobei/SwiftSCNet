@@ -22,7 +22,6 @@
 		1EF341FA966744987AD41E1F3AC1CAC0 /* BinaryEncodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE8A3D2F6089409E5B7A1C277F0568 /* BinaryEncodingError.swift */; };
 		2230E7190A554A2ACBF520B3B1EEA5C4 /* BlockingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC43562FE9F29FBD9A7E0E129E576BB0 /* BlockingQueue.swift */; };
 		25D249190DE4BA022C5C24CC8592C18E /* Pods-SwiftSCNet_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C760085A5CD9769C2062612AD19DBD09 /* Pods-SwiftSCNet_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		263363A9E773E2B1B5B5033D97ADE80A /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20C75F8860B248221E9A56E8F83AC07 /* Socket.swift */; };
 		29F886F64812967EDC2B9F2F70320734 /* TextFormatDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292F6EA403897CD77CB7FA153014F6AF /* TextFormatDecoder.swift */; };
 		2ADC68DA8EE638641FF04DA5039C5CFB /* Message+TextFormatAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A74F5746066891F86E7F981869FADD /* Message+TextFormatAdditions.swift */; };
 		2C1093A202778DDD57ABE8EA1A8A796A /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E815766400EF0B6EB7C967F18E8B89 /* SwiftProtobuf.framework */; };
@@ -39,26 +38,26 @@
 		405544DA82C0B9B522B56AC3AF1F891A /* ProtobufMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4801B374C98F3A763CC7A41B8E976ABD /* ProtobufMap.swift */; };
 		41EBDF70B7ABFBAAF45333DC1C48F7CE /* BinaryDelimited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687473C7551BE4573B335C49A61A551F /* BinaryDelimited.swift */; };
 		427801566E514C63DE3656C1CB9B599D /* BinaryDecodingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A782E8B1D3B8A4930F6752A6D73BD1E /* BinaryDecodingOptions.swift */; };
+		438800F7C78635F5AB76CFF59406C07A /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB426CA0B8FAED335F8BD2FD6FDEE368 /* UDPClient.swift */; };
 		47D0AC7AA1185C776AC1A3C43908D4F9 /* Pods-SwiftSCNet_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D435201C9761443B200461E3E3E7B8B8 /* Pods-SwiftSCNet_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		48945159641A96A0D5AF436438C245DE /* DoubleFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A5B668073177FB803E95D7CB0F5E40 /* DoubleFormatter.swift */; };
 		48E74E5A141BD2BFEC780852FA53A87B /* TextFormatScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605B35EF783B160B3662783AD42CC3CB /* TextFormatScanner.swift */; };
 		48F3C9674E853C6C0B269774333CC6F7 /* MessageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ACACAF7A501D3BF9C28C7A74342938 /* MessageExtension.swift */; };
 		49A9990DFA139CFD6811346110CBA429 /* SwiftProtobuf-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC328A9FB9A802347DEB9FB4A01EE48 /* SwiftProtobuf-dummy.m */; };
-		4C744095FCD7ECE123878ADC759DC493 /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = A5B2F34CD4AFAA1B3C0CBCC7F8D4C1BC /* yudpsocket.c */; };
-		4D64E2B68552E1C8109405AB9DD803F8 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB0BCE99C458DA2D7B8CDCE1E3DD641 /* Result.swift */; };
 		52B17F9C978B47D3595D339123C7589F /* api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861A5EE0ACED30655AD1C8252D0AEAD7 /* api.pb.swift */; };
 		52E670C242CE193CAE92A8AA7568BF25 /* JSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8BCB46E16634A7A244E315194A03AE /* JSONEncoder.swift */; };
 		556A92DAEF0E48E00C4678F7D2E4B0D3 /* JSONMapEncodingVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05DE74D28195D91556022E091F62913 /* JSONMapEncodingVisitor.swift */; };
 		55796A05D04520BD3DB0233BD87A8CE0 /* JSONDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154F849FE919E4A1C4A1611076C4F44B /* JSONDecodingError.swift */; };
 		55B8EA69B4983C5FD71770237052E1CD /* TimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E5B138C2B0B0C876E3806E237980FF /* TimeUtils.swift */; };
 		5776B90802D4DA4A548743732EF8162A /* SwiftSCNet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 144F41B8C7F9E447AF18AADFBD11F284 /* SwiftSCNet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		59453FEAB1FF89F2264F0D40310F9F22 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E3C3D8905C5ED8B51BAB636C98DBDA /* TCPClient.swift */; };
 		5A74B1D102D1A6843E5FFFA1370F0068 /* ProtoNameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61013A2C5E62F8A5A581FF8BEADE01A2 /* ProtoNameProviding.swift */; };
 		5A7C0C50DA7F5B950D36258857B4911D /* SwiftKcp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F26F8B1D9CB95F8FDE8D2EFFC2BB1F /* SwiftKcp.framework */; };
 		5AD5E26CD08A675A37943084CD340266 /* Message+BinaryAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A784FB803B5FBBA8A7FBC1B8917D889 /* Message+BinaryAdditions.swift */; };
+		5C441CFF1C785B9804BB17BDAE13D778 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20C75F8860B248221E9A56E8F83AC07 /* Socket.swift */; };
 		5EBC417136B08B04C9CED591ABFCA120 /* ServerSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EBD8743C6A2C6ED6946681D0B37D7D /* ServerSessionDelegate.swift */; };
 		60744135451CF70AD1EFFDEEC577C636 /* SwiftKcp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 41C1073E9ED642E5BA4313BE6464DA58 /* SwiftKcp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		609D6B7AA3DD25A30171FC17FFCEAB9C /* SwiftSCNet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D270102CED77C27AC2B30B1348368F3B /* SwiftSCNet-dummy.m */; };
+		60DC8EF09024ED64739A05705EF6844E /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 572618693CA5F27879B804AB9D513D41 /* ytcpsocket.c */; };
 		6209FBC709990FD2A8776773D2F9379D /* Pods-SwiftSCNet_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 691FEBE39F52A82EE758EC15F33B6B55 /* Pods-SwiftSCNet_Example-dummy.m */; };
 		65BE0A20F294E2C73D5D7BD427E6F581 /* Google_Protobuf_Wrappers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355B799656D26A74089356026341C8F /* Google_Protobuf_Wrappers+Extensions.swift */; };
 		669135C8C9645C30FDB54FD0587EED1C /* Varint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1EC253AA04DB8226AE138DAFA0333B /* Varint.swift */; };
@@ -66,6 +65,7 @@
 		6F89E472156C5FC2731EFD4406EE2E46 /* timestamp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4F70BFFCB90385CA370DE005E90D /* timestamp.pb.swift */; };
 		6F8C6D4AEDDD469DC32F58EF52C5DB03 /* Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8610DA24D2567ED54DE1ADF09A9CC1 /* Internal.swift */; };
 		70107CCD6E5B5FB8BD3FB84597118B97 /* SelectiveVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6854D2047E6EB7F70632D1B8BD6BC37 /* SelectiveVisitor.swift */; };
+		726F5E7A8222A4AFEC0D6C0B2A78F41C /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = A5B2F34CD4AFAA1B3C0CBCC7F8D4C1BC /* yudpsocket.c */; };
 		7339F2155710F6ADE3CC7B8EE341CBC5 /* Google_Protobuf_Any+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0B39A113AAB03BCD767A3757E2E56A /* Google_Protobuf_Any+Extensions.swift */; };
 		73A375435551D7850D3C230DCCDAB5AB /* Message+AnyAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80346D56B98B385E27FCFB4BEFA88FD2 /* Message+AnyAdditions.swift */; };
 		775DEAB719BFB1902E813A3B9731FA65 /* KCPPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490941359D444617787DD071BE1C7970 /* KCPPeer.swift */; };
@@ -82,7 +82,6 @@
 		8B6D47E86ADE874BB75243276FB11E24 /* SwiftProtobuf-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B3CB99E05A89091BB10684ED19E662B /* SwiftProtobuf-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8CBC98454744A6AD81BAA0EF35D26283 /* Pods-SwiftSCNet_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC2AAAD0D99D73D58DEB81330A21A57 /* Pods-SwiftSCNet_Tests-dummy.m */; };
 		8E78BAD496FB09DB5AAFC5C53C0CEECF /* Visitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2B0BE75ABC796BD380DC7171072FB3 /* Visitor.swift */; };
-		8ED8A853D25135862241B1ABB46FB4AD /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 572618693CA5F27879B804AB9D513D41 /* ytcpsocket.c */; };
 		91EE88AE538A5445F731DEC5AAA21EB0 /* ExtensionFieldValueSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578F7FF68932ED4BEB2C0367859C6352 /* ExtensionFieldValueSet.swift */; };
 		98F8C939EE0EF7CDD73D047A59E0EA75 /* Message+JSONArrayAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF9658ACB2951EB368F01A885FA226 /* Message+JSONArrayAdditions.swift */; };
 		9C53D35201C3DA552F4922A67BDCE4EF /* ExtensionFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27641065ED8F23BD3F2B0453B626BFA /* ExtensionFields.swift */; };
@@ -92,6 +91,7 @@
 		A054F727CEE3D484F8924C725764D8D7 /* WireFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D7ECC6F6F1C7F4041F9B091D7E2363 /* WireFormat.swift */; };
 		A2BFED8DFBAC975EB2CDC72CF07E70F1 /* ikcp.h in Headers */ = {isa = PBXBuildFile; fileRef = AD50C5762633A2A728D2BA3920C3120A /* ikcp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5B190383FDD96A4DC521322F9CFBBF2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F49BBDBFBB5CA785B028D14B85B99F /* Foundation.framework */; };
+		A6640875523EA4BB2F05024721C0619B /* SwiftSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 33792EB55CC5716F9BF6700D2E0B0466 /* SwiftSocket-dummy.m */; };
 		A93B0ABB5FD83055A4CA35182C30695E /* BinaryEncodingSizeVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B5D97BDA512A28972D39817112BBC /* BinaryEncodingSizeVisitor.swift */; };
 		B09F4BF61574136635527B84329610EA /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A487016C1AAC6735EFD594F65981D380 /* StringUtils.swift */; };
 		B208DEBE9D20A873A2798AC14DE9E2B1 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCBEEB8BD77191CE92DD468058F62DF /* Enum.swift */; };
@@ -103,17 +103,16 @@
 		BD88717E719E99AFE682CE3B1C8F04ED /* ProtobufAPIVersionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2838A351B5E8D8932AEF7AE8075309 /* ProtobufAPIVersionCheck.swift */; };
 		BF12F201055471C9AF7C84049464DBA8 /* empty.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB3C7DC35390F61E89373344816E47 /* empty.pb.swift */; };
 		C1DE8A2AB459E4B2B8D6D205D3A4051F /* UIDevice+ipAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737038E46D44688B2EF3626EE7DD3B92 /* UIDevice+ipAddress.swift */; };
+		C4DC08F0B169FF58312BF6846447F641 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB0BCE99C458DA2D7B8CDCE1E3DD641 /* Result.swift */; };
 		C50D2908627669BD37F1672767E6F643 /* Host+ipAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D26B201CF0F74AD124CE2C203BF72E /* Host+ipAddress.swift */; };
 		C5684AB040FC2AF44CEF448714BD92D6 /* Varint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6DBD9B96AB869755DF7247C4A496DD /* Varint.swift */; };
 		C9F6BCB21EC801903389EF347B8B7448 /* field_mask.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5F21E29A4B171D4AD077E36A046D5 /* field_mask.pb.swift */; };
-		CA8DB8346100FC057406FB652442979E /* SwiftSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 33792EB55CC5716F9BF6700D2E0B0466 /* SwiftSocket-dummy.m */; };
 		CD76122CE62A3ECBDE90AEF9435E7B2F /* AnyMessageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E83717674DF03AABC6EF3AF21721D4 /* AnyMessageStorage.swift */; };
 		CDEC5DA544120A3B07CB634F0F73DF6E /* Google_Protobuf_Any+Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E224D84604D51553A0C3AEDF7C79222 /* Google_Protobuf_Any+Registry.swift */; };
 		CE18DABFEAA3E0737516817B6FED2AEE /* RendezvousClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDC7ED6A65DDA0B502CB8C3DF91A5 /* RendezvousClient.swift */; };
 		CF5F522DD9F5A88C988BB16DBBACB4C9 /* duration.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B6121B83F87773191492B44589DBA1 /* duration.pb.swift */; };
 		D44109398F370694616C454AE83B7733 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F49BBDBFBB5CA785B028D14B85B99F /* Foundation.framework */; };
 		D5BAF941C21829B93C088A8BBA9DC41C /* ZigZag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA273794167C6E16A696FD909598F3BF /* ZigZag.swift */; };
-		D5DEABCE4D4CFB9CF5E744D43EFE7996 /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB426CA0B8FAED335F8BD2FD6FDEE368 /* UDPClient.swift */; };
 		D63B2BEDCE7278722C7CF2D837B3D4C1 /* wrappers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E89AE4A3C8256875E79C8CB3EA86763 /* wrappers.pb.swift */; };
 		D7F8A26B6C2391858B537BEC38B65CD4 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C919BC8D836BCA77272DF54198D40A /* Version.swift */; };
 		D93BD01876433BD6C64F73191E9A2AE8 /* ExtensionMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72D802EE50D805166466B39C34DDD4E /* ExtensionMap.swift */; };
@@ -127,6 +126,7 @@
 		EAB80FB33299E11439243832EED49200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F49BBDBFBB5CA785B028D14B85B99F /* Foundation.framework */; };
 		EDD88D2A05209B0B8BF6A1456C1C009D /* ExtensibleMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA382FB0E6F4740962FB8555DD233 /* ExtensibleMessage.swift */; };
 		F111503B091233E3C34886C433A4CF30 /* Google_Protobuf_ListValue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308CDBB81EC0BAA47E5E177E3DD3C4C /* Google_Protobuf_ListValue+Extensions.swift */; };
+		F35599CF87C155F517C3F3407AF3043A /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E3C3D8905C5ED8B51BAB636C98DBDA /* TCPClient.swift */; };
 		FA6BF538F950FDF76973125C3F85A94D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAC9E1FA91951F13FEB0F5294A5F575 /* Message.swift */; };
 		FA931D5A19D461005C279BDE017979D6 /* AnyUnpackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBEA5F16FDF497A06D680AE786D715E /* AnyUnpackError.swift */; };
 		FC85787702E9888D5D64DF539AA475D9 /* Google_Protobuf_Duration+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18ACDB034B26D998C02F2CBB9D9DACB /* Google_Protobuf_Duration+Extensions.swift */; };
@@ -786,7 +786,7 @@
 			buildConfigurationList = 6DE85025EA137892D816384F483C7ADF /* Build configuration list for PBXNativeTarget "SwiftSocket" */;
 			buildPhases = (
 				58AFD3320EB080260B6D6D8CDDDDD443 /* Headers */,
-				B3D1BACA3217DE6ECE7CBD20DEBF9229 /* Sources */,
+				9320E665F07F68DD437E57E52B3F62A9 /* Sources */,
 				AEABBEA91D4312782AD3A8D86CCE200B /* Frameworks */,
 				39557834A6608492E1D0C48C4DD98E6D /* Resources */,
 			);
@@ -912,6 +912,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = CE66A6736D58FF01BAB01DC8C06F7C4E /* Products */;
@@ -1102,17 +1103,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B3D1BACA3217DE6ECE7CBD20DEBF9229 /* Sources */ = {
+		9320E665F07F68DD437E57E52B3F62A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D64E2B68552E1C8109405AB9DD803F8 /* Result.swift in Sources */,
-				263363A9E773E2B1B5B5033D97ADE80A /* Socket.swift in Sources */,
-				CA8DB8346100FC057406FB652442979E /* SwiftSocket-dummy.m in Sources */,
-				59453FEAB1FF89F2264F0D40310F9F22 /* TCPClient.swift in Sources */,
-				D5DEABCE4D4CFB9CF5E744D43EFE7996 /* UDPClient.swift in Sources */,
-				8ED8A853D25135862241B1ABB46FB4AD /* ytcpsocket.c in Sources */,
-				4C744095FCD7ECE123878ADC759DC493 /* yudpsocket.c in Sources */,
+				C4DC08F0B169FF58312BF6846447F641 /* Result.swift in Sources */,
+				5C441CFF1C785B9804BB17BDAE13D778 /* Socket.swift in Sources */,
+				A6640875523EA4BB2F05024721C0619B /* SwiftSocket-dummy.m in Sources */,
+				F35599CF87C155F517C3F3407AF3043A /* TCPClient.swift in Sources */,
+				438800F7C78635F5AB76CFF59406C07A /* UDPClient.swift in Sources */,
+				60DC8EF09024ED64739A05705EF6844E /* ytcpsocket.c in Sources */,
+				726F5E7A8222A4AFEC0D6C0B2A78F41C /* yudpsocket.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
