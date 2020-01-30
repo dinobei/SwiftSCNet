@@ -296,7 +296,7 @@ open class ServerSession: NSObject {
             
         }
         
-        return (messageHeader, totalData[0...totalData.count])
+        return (messageHeader, totalData[0..<totalData.count])
     }
     
 }
