@@ -24,6 +24,8 @@ open class ServerSession: NSObject {
     
     let registry = Registry.sharedInstance
     
+    var isFinished = true
+    
     public init(ip: String, port: Int32, delegate: ServerSessionDelegate) {
         self.client = TCPClient(address: ip, port: port)
         self.queue = BlockingQueue<Message>()
@@ -46,6 +48,7 @@ open class ServerSession: NSObject {
             return
         }
         
+        isFinished = false
         isInterrupted = false
         while !isInterrupted {
             
@@ -154,6 +157,7 @@ open class ServerSession: NSObject {
         
         // clean up
         client.close()
+        isFinished = true
     }
     
     public func request(_ message: Message) {
@@ -169,6 +173,10 @@ open class ServerSession: NSObject {
     public func interrupt() {
         isInterrupted = true
         isSRThreadInterrupted = true
+        self.client?.close()
+        while !isFinished {
+            sleep(1)
+        }
     }
     
     private func send(request: Message) throws -> Bool {
