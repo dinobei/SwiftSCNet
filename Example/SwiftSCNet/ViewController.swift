@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         
         let dispatchQueue = DispatchQueue.init(label: "dq")
         dispatchQueue.async {
-            server.start(timeout: 1)
+            server.start(timeout: 3)
         }
     }
 

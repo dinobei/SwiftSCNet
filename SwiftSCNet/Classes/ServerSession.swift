@@ -25,8 +25,10 @@ open class ServerSession: NSObject {
     let registry = Registry.sharedInstance
     
     var isFinished = true
+    var ping: TimeInterval;
     
     public init(ip: String, port: Int32, delegate: ServerSessionDelegate) {
+        self.ping = Date().timeIntervalSince1970
         self.client = TCPClient(address: ip, port: port)
         self.queue = BlockingQueue<Message>()
         
@@ -35,6 +37,7 @@ open class ServerSession: NSObject {
     }
     
     public init(sessionIndex: Int32, ip: String, port: Int32, delegate: ServerManagerDelegate) {
+        self.ping = Date().timeIntervalSince1970
         self.client = TCPClient(address: ip, port: port)
         self.queue = BlockingQueue<Message>()
 
@@ -107,7 +110,9 @@ open class ServerSession: NSObject {
                     do {
                         guard let (messageHeader, data) = try self.recv() else {
                             // timeout RecvThread
-                            self.serverSessionDelegate?.onTimedOut?()
+                            if self.ping + TimeInterval(timeout) < Date().timeIntervalSince1970 {
+                                self.serverSessionDelegate?.onTimedOut?()
+                            }
                             continue
                         }
 
@@ -115,6 +120,8 @@ open class ServerSession: NSObject {
                             print("Unknown message type")
                             break
                         }
+                        
+                        self.ping = Date().timeIntervalSince1970
                         
                         switch messageType {
                         case .RAWBYTE:
