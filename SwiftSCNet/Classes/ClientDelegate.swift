@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public protocol ServerSessionDelegate {
+@objc public protocol ClientDelegate {
     @objc optional func onAttaching()
     @objc optional func onAttached()
     @objc optional func onTimedOut()

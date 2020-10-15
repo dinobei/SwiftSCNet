@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19DCC2D02537FD5D007C4258 /* example.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DCC2CE2537FD5D007C4258 /* example.pb.swift */; };
+		19DCC2D12537FD5D007C4258 /* packet_type.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DCC2CF2537FD5D007C4258 /* packet_type.pb.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		063C824F88A0C8A256FD979E /* SwiftSCNet.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SwiftSCNet.podspec; path = ../SwiftSCNet.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		11D8406C31869D27AEAE586D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		19DCC2CE2537FD5D007C4258 /* example.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example.pb.swift; sourceTree = "<group>"; };
+		19DCC2CF2537FD5D007C4258 /* packet_type.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = packet_type.pb.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* SwiftSCNet_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftSCNet_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 		607FACD21AFB9204008FA782 /* Example for SwiftSCNet */ = {
 			isa = PBXGroup;
 			children = (
+				19DCC2CE2537FD5D007C4258 /* example.pb.swift */,
+				19DCC2CF2537FD5D007C4258 /* packet_type.pb.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -339,6 +345,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19DCC2D12537FD5D007C4258 /* packet_type.pb.swift in Sources */,
+				19DCC2D02537FD5D007C4258 /* example.pb.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);

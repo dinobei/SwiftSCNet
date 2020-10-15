@@ -10,31 +10,20 @@ import Foundation
 import SwiftProtobuf
 
 open class Registry {
-    public typealias ProtobufCallback = (Int, Message)->Void
-    public typealias RawByteCallback = (Int, ArraySlice<UInt8>)->Void
-    private var dict: Dictionary<String, Int32> // Protobuf Message name to packetType
-    private var dictProtobufMessageType: Dictionary<Int32, Message.Type> // Packet type to protobuf message name
-    private var dictProtobufCallback: Dictionary<Int32, ProtobufCallback?> // packetType to closure
-    
-    private var dictCallback: Dictionary<Int32, RawByteCallback?> // packetType to closure
+    public typealias Callback = (Scnet_Header, Message)->Void
+    private var dict: Dictionary<String, UInt32> // Protobuf Message name to packetType
+    private var dictMessageType: Dictionary<UInt32, Message.Type> // Packet type to protobuf message name
+    private var dictCallback: Dictionary<UInt32, Callback?> // packetType to closure
     
     public static let sharedInstance = Registry()
     
     private init() {
-        dict = Dictionary<String, Int32>()
-        dictProtobufMessageType = Dictionary<Int32, Message.Type>()
-        dictProtobufCallback = Dictionary<Int32, ProtobufCallback?>()
-        dictCallback = Dictionary<Int32, RawByteCallback?>()
+        dict = Dictionary<String, UInt32>()
+        dictMessageType = Dictionary<UInt32, Message.Type>()
+        dictCallback = Dictionary<UInt32, Callback?>()
     }
     
-    public func registRawBytePacket(packetType: Int32, callback: RawByteCallback?) throws {
-        if dictCallback.keys.contains(packetType) {
-            throw RegistError.AlreadyExistKey
-        }
-        dictCallback[packetType] = callback
-    }
-    
-    public func registProtobufPacket(messageType: Message.Type, packetType: Int32, callback: ProtobufCallback?) throws {
+    public func registPacket(messageType: Message.Type, packetType: UInt32, callback: Callback?) throws {
         // regist packetType
         if dict.keys.contains(messageType.protoMessageName) {
             throw RegistError.AlreadyExistKey
@@ -42,19 +31,19 @@ open class Registry {
         dict[messageType.protoMessageName] = packetType
         
         // regist message type
-        if dictProtobufMessageType.keys.contains(packetType) {
+        if dictMessageType.keys.contains(packetType) {
             throw RegistError.AlreadyExistKey
         }
-        dictProtobufMessageType[packetType] = messageType
+        dictMessageType[packetType] = messageType
         
         // regist callback
-        if dictProtobufCallback.keys.contains(packetType) {
+        if dictCallback.keys.contains(packetType) {
             throw RegistError.AlreadyExistKey
         }
-        dictProtobufCallback[packetType] = callback
+        dictCallback[packetType] = callback
     }
     
-    public func getPacketType(_ message: Message) throws -> Int32 {
+    public func getPacketType(_ message: Message) throws -> UInt32 {
         let key = type(of: message).protoMessageName
         if let typeInt = dict[key] {
             return typeInt
@@ -63,25 +52,17 @@ open class Registry {
         throw RegistError.TryingToGetUnknownType
     }
     
-    public func getMessageType(packetType: Int32) throws -> Message.Type {
-        if let messageType = dictProtobufMessageType[packetType] {
+    public func getMessageType(packetType: UInt32) throws -> Message.Type {
+        if let messageType = dictMessageType[packetType] {
             return messageType
         }
         
         throw RegistError.TryingToGetUnknownMessageType
     }
     
-    public func getRawByteCallback(packetType: Int32) throws -> RawByteCallback? {
-        if let callback = dictCallback[packetType] {
-            return callback
-        }
-        
-        throw GetRegistryError.NotExistKey
-    }
-    
-    public func getProtobufCallback(packetType: Int32) throws -> ProtobufCallback? {
+    public func getCallback(packetType: UInt32) throws -> Callback? {
         let key = packetType
-        if let callback = dictProtobufCallback[key] {
+        if let callback = dictCallback[key] {
             return callback
         }
         
