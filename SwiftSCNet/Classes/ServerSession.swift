@@ -239,6 +239,7 @@ open class ServerSession: NSObject {
             return nil
         }
         guard let magicPacket = try client.read(MAGIC_PACKET_LENGTH, timeout: 1),
+            magicPacket.count == 2,
             magicPacket[0] == MAGIC_PACKET[0],
             magicPacket[1] == MAGIC_PACKET[1] else {
             return nil
