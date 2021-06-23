@@ -181,7 +181,7 @@ open class ServerSession: NSObject {
         isInterrupted = true
         isSRThreadInterrupted = true
         self.client?.close()
-        while !isFinished {
+        if !isFinished {
             sleep(1)
         }
     }
