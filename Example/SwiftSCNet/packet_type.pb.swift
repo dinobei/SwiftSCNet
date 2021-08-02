@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public enum Example_PacketType: SwiftProtobuf.Enum {
+public enum PacketType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
   case ping // = 0
   case dummyPacket1 // = 1
@@ -52,9 +52,9 @@ public enum Example_PacketType: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension Example_PacketType: CaseIterable {
+extension PacketType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Example_PacketType] = [
+  public static var allCases: [PacketType] = [
     .ping,
     .dummyPacket1,
     .dummyPacket2,
@@ -65,7 +65,7 @@ extension Example_PacketType: CaseIterable {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension Example_PacketType: SwiftProtobuf._ProtoNameProviding {
+extension PacketType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "ping"),
     1: .same(proto: "dummyPacket1"),

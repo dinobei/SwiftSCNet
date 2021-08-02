@@ -10,59 +10,50 @@ import Foundation
 import SwiftProtobuf
 
 open class Registry {
-    public typealias Callback = (Scnet_Header, Message)->Void
-    private var dict: Dictionary<String, UInt32> // Protobuf Message name to packetType
-    private var dictMessageType: Dictionary<UInt32, Message.Type> // Packet type to protobuf message name
-    private var dictCallback: Dictionary<UInt32, Callback?> // packetType to closure
+    public typealias Callback = (Header, Message)->Void
+    public typealias EventCallback = ()->Void
+    private var dictPbMessage: Dictionary<String, Message.Type> // Packet type (string) to protobuf message name
+    private var dictCallback: Dictionary<String, Callback?> // packetType to closure
     
     public static let sharedInstance = Registry()
     
     private init() {
-        dict = Dictionary<String, UInt32>()
-        dictMessageType = Dictionary<UInt32, Message.Type>()
-        dictCallback = Dictionary<UInt32, Callback?>()
+        dictPbMessage = Dictionary<String, Message.Type>()
+        dictCallback = Dictionary<String, Callback?>()
     }
     
-    public func registPacket(messageType: Message.Type, packetType: UInt32, callback: Callback?) throws {
-        // regist packetType
-        if dict.keys.contains(messageType.protoMessageName) {
-            throw RegistError.AlreadyExistKey
-        }
-        dict[messageType.protoMessageName] = packetType
-        
+    public func registPacket(messageType: Message.Type, callback: Callback?) throws {
         // regist message type
-        if dictMessageType.keys.contains(packetType) {
+        let packetType = messageType.protoMessageName.lowercased()
+        if dictPbMessage.keys.contains(packetType) {
             throw RegistError.AlreadyExistKey
         }
-        dictMessageType[packetType] = messageType
+        dictPbMessage[packetType] = messageType
         
         // regist callback
-        if dictCallback.keys.contains(packetType) {
-            throw RegistError.AlreadyExistKey
+        if callback != nil {
+            if dictCallback.keys.contains(packetType) {
+                throw RegistError.AlreadyExistKey
+            }
+            dictCallback[packetType] = callback
         }
-        dictCallback[packetType] = callback
     }
     
-    public func getPacketType(_ message: Message) throws -> UInt32 {
-        let key = type(of: message).protoMessageName
-        if let typeInt = dict[key] {
-            return typeInt
-        }
-
-        throw RegistError.TryingToGetUnknownType
+    public func getPacketType(_ message: Message) throws -> String {
+        let packetType = type(of: message).protoMessageName.lowercased()
+        return packetType
     }
     
-    public func getMessageType(packetType: UInt32) throws -> Message.Type {
-        if let messageType = dictMessageType[packetType] {
+    public func getMessageType(packetType: String) throws -> Message.Type {
+        if let messageType = dictPbMessage[packetType] {
             return messageType
         }
         
         throw RegistError.TryingToGetUnknownMessageType
     }
     
-    public func getCallback(packetType: UInt32) throws -> Callback? {
-        let key = packetType
-        if let callback = dictCallback[key] {
+    public func getCallback(packetType: String) throws -> Callback? {
+        if let callback = dictCallback[packetType] {
             return callback
         }
         

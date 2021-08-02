@@ -20,8 +20,19 @@ open class Client: NSObject {
     
     let registry = Registry.sharedInstance
     
-    var callbackKeyRef: Int32 = 1000
-    var callbackMap = [Int32:Registry.Callback?]()
+    var callbackKeyRef: Int32 = 1
+    
+    struct CallbackContext {
+        var onReceived: Registry.Callback
+        var onTimeout: Registry.EventCallback?
+        var onEnded: Registry.EventCallback?
+        var reqUts: TimeInterval;
+        var resUts: TimeInterval;
+        var timeout: TimeInterval;
+        var ctxTimeout: TimeInterval;
+    }
+    
+    var cbCtxMap = [Int32:CallbackContext]()
     
     var _connected = false
     open var connected: Bool {
@@ -75,22 +86,32 @@ open class Client: NSObject {
             
             self.recvThreadInterrupted = false
             DispatchQueue.global(qos: .default).async {
+                var prevTime = Date().timeIntervalSince1970
                 while !self.recvThreadInterrupted {
                     do {
                         guard let (header, message) = try self.recv() else {
+                            self.updateCallbackContextMap()
+                            
                             // timeout RecvThread
                             if self.ping + TimeInterval(timeout) < Date().timeIntervalSince1970 {
                                 self.clientDelegate?.onTimedOut?()
                             }
                             continue
                         }
-
+                        
+                        let currentTime = Date().timeIntervalSince1970
+                        if prevTime + 1 < currentTime {
+                            prevTime = currentTime
+                            self.updateCallbackContextMap()
+                        }
+                        
                         self.ping = Date().timeIntervalSince1970
 
                         do {
-                            if let callback = self.callbackMap[header.resCb], let _callback = callback {
-                                _callback(header, message)
-                                self.callbackMap.removeValue(forKey: header.resCb)
+                            if var cbCtx = self.cbCtxMap[header.resOf] {
+                                cbCtx.resUts = Date().timeIntervalSince1970
+                                cbCtx.onReceived(header, message)
+                                self.cbCtxMap[header.resOf] = cbCtx
                             }
                             else if let callback = try self.registry.getCallback(packetType: header.packetType) {
                                 callback(header, message)
@@ -132,17 +153,31 @@ open class Client: NSObject {
 //        }
     }
     
-    public func send(header: Scnet_Header?, message: Message, callback: Registry.Callback?) throws -> Bool {
+    public func send(header _header: Header?, message: Message,
+                     onReceived: Registry.Callback? = nil,
+                     onTimeout: Registry.EventCallback? = nil,
+                     onEnded: Registry.EventCallback? = nil) throws -> Bool {
         guard let tcpClient = self.tcpClient else {
             return false
         }
 
         let packetType = try registry.getPacketType(message)
-        var header = Scnet_Header()
-        header.packetType = UInt32(packetType)
-        if let callback = callback {
-            header.reqCb = callbackKeyRef
-            callbackMap[callbackKeyRef] = callback
+        var header = Header()
+        header.packetType = packetType
+        if let _header = _header {
+            header.resOf = _header.id
+        }
+        if let onReceived = onReceived {
+            let currentTime = Date().timeIntervalSince1970
+            let cbCtx = CallbackContext(onReceived: onReceived,
+                                        onTimeout: onTimeout,
+                                        onEnded: onEnded,
+                                        reqUts: currentTime,
+                                        resUts: 0,
+                                        timeout: 3,
+                                        ctxTimeout: 3600)
+            cbCtxMap[callbackKeyRef] = cbCtx
+            header.id = callbackKeyRef
             callbackKeyRef += 1
         }
         
@@ -166,7 +201,14 @@ open class Client: NSObject {
         return result.isSuccess
     }
     
-    private func recv() throws -> (Scnet_Header, Message)? {
+    public func send(message: Message,
+                     onReceived: Registry.Callback? = nil,
+                     onTimeout: Registry.EventCallback? = nil,
+                     onEnded: Registry.EventCallback? = nil) throws -> Bool {
+        return try send(header: nil, message: message, onReceived: onReceived, onTimeout: onTimeout, onEnded: onEnded)
+    }
+    
+    private func recv() throws -> (Header, Message)? {
         guard let tcpClient = self.tcpClient else {
             return nil
         }
@@ -192,7 +234,7 @@ open class Client: NSObject {
         }
         
         do {
-            let header = try Scnet_Header.self.init(serializedData: Data(packet[0..<headerSize]))
+            let header = try Header.self.init(serializedData: Data(packet[0..<headerSize]))
             let messageType = try self.registry.getMessageType(packetType: header.packetType)
             let message = try messageType.init(serializedData: Data(packet[headerSize..<packetSize]))
             return (header, message)
@@ -203,4 +245,25 @@ open class Client: NSObject {
         return nil
     }
     
+    private func updateCallbackContextMap() {
+        for (key, cbCtx) in self.cbCtxMap {
+            let reqUts = cbCtx.reqUts
+            let resUts = cbCtx.resUts
+            let timeoutMs = cbCtx.timeout
+            let ctxTimeoutMs = cbCtx.ctxTimeout
+            
+            let currentTime = Date().timeIntervalSince1970
+            if resUts == 0 {
+                if reqUts + timeoutMs < currentTime {
+                    cbCtx.onTimeout?()
+                    self.cbCtxMap.removeValue(forKey: key)
+                }
+            } else {
+                if resUts + ctxTimeoutMs < currentTime {
+                    cbCtx.onEnded?()
+                    self.cbCtxMap.removeValue(forKey: key)
+                }
+            }
+        }
+    }
 }

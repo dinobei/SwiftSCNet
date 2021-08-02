@@ -19,18 +19,18 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Scnet_Header {
+public struct Header {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var packetType: UInt32 = 0
+  public var packetType: String = String()
 
-  public var reqCb: Int32 = 0
+  public var id: Int32 = 0
 
-  public var resCb: Int32 = 0
+  public var resOf: Int32 = 0
 
-  public var authToken: UInt32 = 0
+  public var authToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -41,47 +41,47 @@ public struct Scnet_Header {
 
 fileprivate let _protobuf_package = "scnet"
 
-extension Scnet_Header: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Header: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Header"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "packetType"),
-    2: .standard(proto: "req_cb"),
-    3: .standard(proto: "res_cb"),
+    2: .same(proto: "id"),
+    3: .same(proto: "resOf"),
     4: .same(proto: "authToken"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt32Field(value: &self.packetType)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.reqCb)
-      case 3: try decoder.decodeSingularInt32Field(value: &self.resCb)
-      case 4: try decoder.decodeSingularUInt32Field(value: &self.authToken)
+      case 1: try decoder.decodeSingularStringField(value: &self.packetType)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.id)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.resOf)
+      case 4: try decoder.decodeSingularStringField(value: &self.authToken)
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.packetType != 0 {
-      try visitor.visitSingularUInt32Field(value: self.packetType, fieldNumber: 1)
+    if !self.packetType.isEmpty {
+      try visitor.visitSingularStringField(value: self.packetType, fieldNumber: 1)
     }
-    if self.reqCb != 0 {
-      try visitor.visitSingularInt32Field(value: self.reqCb, fieldNumber: 2)
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 2)
     }
-    if self.resCb != 0 {
-      try visitor.visitSingularInt32Field(value: self.resCb, fieldNumber: 3)
+    if self.resOf != 0 {
+      try visitor.visitSingularInt32Field(value: self.resOf, fieldNumber: 3)
     }
-    if self.authToken != 0 {
-      try visitor.visitSingularUInt32Field(value: self.authToken, fieldNumber: 4)
+    if !self.authToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.authToken, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Scnet_Header, rhs: Scnet_Header) -> Bool {
+  public static func ==(lhs: Header, rhs: Header) -> Bool {
     if lhs.packetType != rhs.packetType {return false}
-    if lhs.reqCb != rhs.reqCb {return false}
-    if lhs.resCb != rhs.resCb {return false}
+    if lhs.id != rhs.id {return false}
+    if lhs.resOf != rhs.resOf {return false}
     if lhs.authToken != rhs.authToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

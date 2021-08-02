@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Example_Ping {
+public struct Ping {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -29,7 +29,7 @@ public struct Example_Ping {
   public init() {}
 }
 
-public struct Example_DummyPacket1 {
+public struct DummyPacket1 {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -43,7 +43,7 @@ public struct Example_DummyPacket1 {
   public init() {}
 }
 
-public struct Example_DummyPacket2 {
+public struct DummyPacket2 {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -59,7 +59,7 @@ public struct Example_DummyPacket2 {
 
 fileprivate let _protobuf_package = "example"
 
-extension Example_Ping: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Ping: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Ping"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -72,13 +72,13 @@ extension Example_Ping: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Example_Ping, rhs: Example_Ping) -> Bool {
+  public static func ==(lhs: Ping, rhs: Ping) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Example_DummyPacket1: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension DummyPacket1: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DummyPacket1"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "title"),
@@ -105,7 +105,7 @@ extension Example_DummyPacket1: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Example_DummyPacket1, rhs: Example_DummyPacket1) -> Bool {
+  public static func ==(lhs: DummyPacket1, rhs: DummyPacket1) -> Bool {
     if lhs.title != rhs.title {return false}
     if lhs.number != rhs.number {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -113,7 +113,7 @@ extension Example_DummyPacket1: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 }
 
-extension Example_DummyPacket2: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension DummyPacket2: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DummyPacket2"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     3: .same(proto: "strArr"),
@@ -135,7 +135,7 @@ extension Example_DummyPacket2: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Example_DummyPacket2, rhs: Example_DummyPacket2) -> Bool {
+  public static func ==(lhs: DummyPacket2, rhs: DummyPacket2) -> Bool {
     if lhs.strArr != rhs.strArr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
